@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="29b17c61-866d-4eb1-a4f4-7b4f478ac3e7" ChangeDateTime="01/23/2017 14:08:08">
+    <Property Name="ElementName" Value="[dbo].[AppSetting].[AffiliateId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AppSetting]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TenantId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="62d9a78f-2fba-49bb-b5a5-d249ef7927ae" ChangeDateTime="01/23/2017 14:10:18">
+    <Property Name="ElementName" Value="[dbo].[AppSettingType].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AppSettingType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AppSettingTypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ada1a816-93cd-4056-8dc6-6a44fec26cac" ChangeDateTime="01/23/2017 16:31:18">
+    <Property Name="ElementName" Value="[dbo].[FK_AppSetting_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[AppSetting]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_AppSetting_Tenant]" />
+  </Operation>
+</Operations>
