@@ -20,14 +20,20 @@ VALUES
 	('NUMERIC','Numbers only Content. Integers and floats')
 GO
 
-INSERT INTO [dbo].[AppSettingType](
-	[AppSectionId],
-	[Section], 
-    [Description])
+SET IDENTITY_INSERT [dbo].[AppSettingSection] ON
+GO
+INSERT INTO [dbo].[AppSettingSection](
+	[AppSettingSectionId],
+	[Section],
+	[Description])
 VALUES
 	(0, 'General','Platform general settings')
 GO
+SET IDENTITY_INSERT [dbo].[AppSettingSection] OFF
+GO
 
+SET IDENTITY_INSERT [dbo].[AppSettingGroup] ON
+GO
 INSERT INTO [dbo].[AppSettingGroup](
 	[AppSettingGroupId],
 	[Group],
@@ -35,20 +41,28 @@ INSERT INTO [dbo].[AppSettingGroup](
 VALUES
 	(0, 'Core', 'Settings apply to ALL consumers and is the root of all inherited settings.')
 GO
-
-INSERT INTO [dbo].[AppSetting](
-	[SettingKey],
-	[SettingGroupId],
-	[SettingSectionId],
-	[Type],
-	[SettingValue],
-	[Description])
-VALUES
-	('TestSetting',0,0,'TEXT','This is a test text setting','Remove this test setting')
+SET IDENTITY_INSERT [dbo].[AppSettingGroup] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[Tenant] ON
+GO
 INSERT INTO [dbo].[Tenant](
 	[TenantId],[TenantName],[TenantCode],[TenantDescription])
 	VALUES
 		(0,'Platform','PLATFORM','Applies to all tenants')
 GO
+SET IDENTITY_INSERT [dbo].[Tenant] OFF
+GO
+
+INSERT INTO [dbo].[AppSetting](
+	[SettingKey],
+	[SettingGroupId],
+	[SettingSectionId],
+	[TypeId],
+	[TenantId],
+	[SettingValue],
+	[Description])
+VALUES
+	('TestSetting',0,0,4,0,'TEXT','This is a test text setting','Remove this test setting')
+GO
+

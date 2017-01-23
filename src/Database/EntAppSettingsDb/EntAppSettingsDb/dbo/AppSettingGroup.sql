@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[AppSettingGroup]
 (
-	[AppSettingGroupId] INT NOT NULL PRIMARY KEY,
+	[AppSettingGroupId] INT NOT NULL PRIMARY KEY IDENTITY,
     [ParentGroupId] INT NULL, 
 	[Group] VARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(1000),

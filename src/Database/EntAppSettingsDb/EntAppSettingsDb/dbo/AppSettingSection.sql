@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[AppSettingSection]
 (
-	[AppSettingSectionId] INT NOT NULL PRIMARY KEY,
+	[AppSettingSectionId] INT NOT NULL PRIMARY KEY IDENTITY,
     [ParentSectionId] INT NULL, 
 	[Section] VARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(1000),
