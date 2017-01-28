@@ -1,22 +1,24 @@
 ﻿CREATE TABLE [dbo].[AppSetting] (
-	[AppSettingId] INT NOT NULL IDENTITY, 
-	[SettingKey]   NVARCHAR (50)   NOT NULL,
-    [TenantId]  INT NOT NULL DEFAULT 0,
-    [SettingGroupId] INT   NOT NULL DEFAULT 0,
-    [SettingSectionId] INT   NOT NULL DEFAULT 0,
-	[TypeId] INT NOT NULL,
-    [SettingValue] NVARCHAR (MAX)  DEFAULT ('') NOT NULL,
-	[IsLocked] BIT  DEFAULT ((0)) NOT NULL,
-    [IsInternalOnly] BIT DEFAULT ((0)) NOT NULL,
-    [Description]  NVARCHAR (1000) NULL,
-    [ModifiedDate] DATETIME        DEFAULT (getutcdate()) NOT NULL,
-    [ModifiedBy]   NVARCHAR (50)   DEFAULT (suser_sname()) NOT NULL, 
-    CONSTRAINT [PK_AppSetting] PRIMARY KEY ([AppSettingId]), 
-    CONSTRAINT [FK_AppSetting_Tenant] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([TenantId]), 
-    CONSTRAINT [FK_AppSetting_AppSettingGroup] FOREIGN KEY ([SettingGroupId]) REFERENCES [AppSettingGroup]([AppSettingGroupId]),
-    CONSTRAINT [FK_AppSetting_AppSettingSection] FOREIGN KEY ([SettingSectionId]) REFERENCES [AppSettingSection]([AppSettingSectionId]),
-    CONSTRAINT [FK_AppSetting_AppSettingType] FOREIGN KEY ([TypeId]) REFERENCES [AppSettingType]([AppSettingTypeId]),
+    [AppSettingId]     INT             IDENTITY (1, 1) NOT NULL,
+    [SettingKey]       NVARCHAR (50)   NOT NULL,
+    [TenantId]         INT             DEFAULT ((0)) NOT NULL,
+    [SettingGroupId]   INT             DEFAULT ((0)) NOT NULL,
+    [SettingSectionId] INT             DEFAULT ((0)) NOT NULL,
+    [TypeId]           INT             NOT NULL,
+    [SettingValue]     NVARCHAR (MAX)  DEFAULT ('') NOT NULL,
+    [IsLocked]         BIT             DEFAULT ((0)) NOT NULL,
+    [IsInternalOnly]   BIT             DEFAULT ((0)) NOT NULL,
+    [Description]      NVARCHAR (1000) NULL,
+    [ModifiedDate]     DATETIME        DEFAULT (getutcdate()) NOT NULL,
+    [ModifiedBy]       NVARCHAR (50)   DEFAULT (suser_sname()) NOT NULL,
+    CONSTRAINT [PK_AppSetting] PRIMARY KEY CLUSTERED ([AppSettingId] ASC),
+    CONSTRAINT [FK_AppSetting_AppSettingGroup] FOREIGN KEY ([SettingGroupId]) REFERENCES [dbo].[AppSettingGroup] ([AppSettingGroupId]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_AppSetting_AppSettingSection] FOREIGN KEY ([SettingSectionId]) REFERENCES [dbo].[AppSettingSection] ([AppSettingSectionId]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_AppSetting_AppSettingType] FOREIGN KEY ([TypeId]) REFERENCES [dbo].[AppSettingType] ([AppSettingTypeId]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_AppSetting_Tenant] FOREIGN KEY ([TenantId]) REFERENCES [dbo].[Tenant] ([TenantId]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 GO
 
