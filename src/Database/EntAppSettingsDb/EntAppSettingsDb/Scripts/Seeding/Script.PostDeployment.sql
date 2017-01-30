@@ -17,7 +17,8 @@ VALUES
 	('JSON','JSON Content'),
 	('XML','XML Content'),
 	('TEXT','Text Content'),
-	('NUMERIC','Numbers only Content. Integers and floats')
+	('NUMERIC','Numbers only Content. Integers and floats'),
+	('BOOL', 'Boolean content (true = 1, false = 0)')
 GO
 
 SET IDENTITY_INSERT [dbo].[AppSettingSection] ON

@@ -1,9 +1,9 @@
 ﻿--Returns the list of Parent Group Ids for a given Group Id
 CREATE FUNCTION [dbo].[GetParentAppSettingGroups] 
 (    
-    @AppSettingGroupId varchar(50)
+    @AppSettingGroupId INT
 )
-RETURNS @Result TABLE  ([Id] varchar(50), [ParentGroupId] varchar(50))
+RETURNS @Result TABLE  ([Id] INT, [ParentGroupId] INT)
 AS
     BEGIN
 
