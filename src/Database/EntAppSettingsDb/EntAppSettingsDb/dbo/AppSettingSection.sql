@@ -4,6 +4,7 @@
     [ParentSectionId] INT NULL, 
 	[Section] VARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(1000),
+	[Ordinality] INT NOT NULL DEFAULT 0,
 	[ModifiedDate] DATETIME        DEFAULT (getutcdate()) NOT NULL,
     [ModifiedBy]   NVARCHAR (50)   DEFAULT (suser_sname()) NOT NULL, 
     
@@ -21,3 +22,7 @@ CREATE TRIGGER [dbo].[Trigger_AppSettingSection_Audit]
     END
 
 
+
+GO
+
+CREATE INDEX [IX_AppSettingSection_Section_Ordinality] ON [dbo].[AppSettingSection] ([Ordinality], [Section])
