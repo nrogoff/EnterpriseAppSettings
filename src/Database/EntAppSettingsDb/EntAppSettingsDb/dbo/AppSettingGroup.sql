@@ -4,6 +4,7 @@
     [ParentGroupId] INT NULL, 
 	[Group] VARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(1000),
+	[GroupPath] AS ([dbo].[GetGroupPath]([AppSettingGroupId])),	
 	[ModifiedDate] DATETIME        DEFAULT (getutcdate()) NOT NULL,
     [ModifiedBy]   NVARCHAR (50)   DEFAULT (suser_sname()) NOT NULL, 
     CONSTRAINT [FK_AppSettingGroup_AppSettingGroup] FOREIGN KEY ([ParentGroupId]) REFERENCES [AppSettingGroup]([AppSettingGroupId])
