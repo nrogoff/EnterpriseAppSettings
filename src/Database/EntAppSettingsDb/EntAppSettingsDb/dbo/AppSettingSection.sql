@@ -7,6 +7,7 @@
 	[Ordinality] INT NOT NULL DEFAULT 0,
 	[ModifiedDate] DATETIME        DEFAULT (getutcdate()) NOT NULL,
     [ModifiedBy]   NVARCHAR (50)   DEFAULT (suser_sname()) NOT NULL, 
+    CONSTRAINT [FK_AppSettingSection_AppSettingSection] FOREIGN KEY ([ParentSectionId]) REFERENCES [dbo].[AppSettingSection]([AppSettingSectionId]), 
     
 )
 GO

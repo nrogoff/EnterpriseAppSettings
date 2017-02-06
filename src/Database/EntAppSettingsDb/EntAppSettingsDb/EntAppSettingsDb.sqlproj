@@ -79,6 +79,8 @@
     <Build Include="dbo\Stored Procedures\ClearDownAuditTables.sql" />
     <Build Include="dbo\Stored Procedures\CreateNewAppSettingSet.sql" />
     <Build Include="dbo\Functions\GetGroupPath.sql" />
+    <Build Include="dbo\Functions\GetChildAppSettingSections.sql" />
+    <Build Include="dbo\Functions\GetParentAppSettingSections.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EntAppSettingsDb.refactorlog" />

@@ -1,24 +1,26 @@
-﻿/*
-Post-Deployment Script Template							
---------------------------------------------------------------------------------------
- This file contains SQL statements that will be appended to the build script.		
- Use SQLCMD syntax to include a file in the post-deployment script.			
- Example:      :r .\myfile.sql								
- Use SQLCMD syntax to reference a variable in the post-deployment script.		
- Example:      :setvar TableName MyTable							
-               SELECT * FROM [$(TableName)]					
---------------------------------------------------------------------------------------
-*/
+﻿
+--Post-Deployment Script Template							
+----------------------------------------------------------------------------------------
+-- This file contains SQL statements that will be appended to the build script.		
+-- Use SQLCMD syntax to include a file in the post-deployment script.			
+-- Example:      :r .\myfile.sql								
+-- Use SQLCMD syntax to reference a variable in the post-deployment script.		
+-- Example:      :setvar TableName MyTable							
+--               SELECT * FROM [$(TableName)]					
+----------------------------------------------------------------------------------------
+
 INSERT INTO [dbo].[AppSettingType](
 	[AppSettingType], 
     [AppSettingTypeDescription])
 VALUES
+	('TEXT','Text Content'),
+	('INTEGER', 'Integer (whole number) only'),
+	('DECIMAL','Numbers that are not integers'),
+	('BOOL', 'Boolean content (true = 1, false = 0)'),
+	('CSV','Comma Seperated List. Use double quotes for fields that require it.'),
 	('HMTL','HTML Content'),
 	('JSON','JSON Content'),
-	('XML','XML Content'),
-	('TEXT','Text Content'),
-	('NUMERIC','Numbers only Content. Integers and floats'),
-	('BOOL', 'Boolean content (true = 1, false = 0)')
+	('XML','XML Content')
 GO
 
 SET IDENTITY_INSERT [dbo].[AppSettingSection] ON
@@ -64,6 +66,6 @@ INSERT INTO [dbo].[AppSetting](
 	[SettingValue],
 	[Description])
 VALUES
-	('TestSetting',0,0,4,0,'TEXT','This is a test text setting','Remove this test setting')
+	('TestSetting',0,0,1,0,'This is a test text setting value','Description: Remove this test setting')
 GO
 
