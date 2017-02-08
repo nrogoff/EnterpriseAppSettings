@@ -1,4 +1,7 @@
 # EnterpriseAppSettings
+
+develop branch - ![develop Build Status](https://hardmediumsoft.visualstudio.com/_apis/public/build/definitions/c2006be1-c6e7-4a47-9643-f6e31bccf236/10/badge)
+
 Every large platform needs settings management. This project aims to create a highly fexible configuration system usable on both simple and highly complex multi-tier applications. 
 
 These are settings that are for the system/platform. They are managed centrally and ideally consumers will poll and reconfigure at runtime.
@@ -9,9 +12,9 @@ The source here includes datastore/database, REST service tier and consumer SDK/
 
 The goal is to provide have a standard system that can work across a wide variety of datastores, service infrastructures and consumer cleint OS's and platforms.
 
-_**Project in formation phase...come back in a week**_
+_**Contributors welcome...send me a message**_
 
-I am populating the majority of this project based on code I have been implementing for years. Then it would be great to have contributors come and make more SDKs and help make this system better and applicable for more platforms and datastores.
+I am populating the majority of this project based on code I have been implementing for years. Then it would be great to have contributors come and make more SDKs and help make this system better and applicable for more platforms and datastores and easy to implement.
 
 ## Task to complete for first working version##
 - [x] SQL Server Database project
@@ -52,16 +55,16 @@ However for a service or app that requests it's collection of settings we need a
 
 When a consumer request it's collection of App Settings from the REST service, it will be required to pass the following:
 
-* Group
-* Tenant
+* Tenant Id
+* Group Id
 
-but each 'App Setting' has the following additional attributes:
+and each 'App Setting' also have these additional attributes:
 
-* App Setting Group
 * App Setting Section
 * App Setting Type
 * Is Locked?
 * Is Internal Only?
+* Is Sensitive?
 
 
 ## App Setting Group
@@ -116,7 +119,7 @@ A typical organisation would be something like:
   - iOS Specific
   - Windows Phone Specific
 - Security
-- Misc
+- About
 
 
 ## App Setting Type
@@ -124,11 +127,13 @@ A typical organisation would be something like:
 This indicates the type of data that is stored in the App Setting Value. This can be used to change the rendering of the content or to ensure you invoke the correct parsing handlers.
 
 - TEXT
+- INTEGER
+- DECIMAL
+- BOOL
+- CSV
 - HTML
 - JSON
 - XML
-- NUMERIC
-- PASSWORD
 
 ## Is Locked
 
@@ -145,6 +150,9 @@ Rest Service Type | Description
 Public | Will never publish any App Settings flagged as 'IsInternalOnly'. This service would typically be used by mobile devices and any 3rd party consuming clients.
 Internal | This service will publish App Settings flagged as 'IsInternalOnly'. This service is typically only used by well trusted internal consuming apps or API services.
 
+## Is Sensitive
+
+This is a flag to any UI system that the App Setting Value should be obscured. e.g. using a password field box. Probably also providing a reveal button.
 
 
 
