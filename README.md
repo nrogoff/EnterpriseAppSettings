@@ -15,14 +15,14 @@ I am populating the majority of this project based on code I have been implement
 
 ## Task to complete for first working version##
 - [x] SQL Server Database project
-- [ ] Entity Framework Model layer
-- [ ] Repository layer
-- [ ] Unit of work layer
-- [ ] .NET WebAPI Service
-- [ ] .NET Client SDK
+- [x] Entity Framework Model layer
+- [x] Repository layer
+- [x] Unit of work layer
+- [x] .NET WebAPI Service
+- [x] .NET Client SDK
 - [ ] .NET Core WebAPI Service
 - [ ] .NET Core Docker Image
-- [ ] Add Wiki Pages
+- [x] Add Wiki Pages
 - [ ] Create develop branch and promote
 
 ## Next to-do
@@ -32,6 +32,9 @@ I am populating the majority of this project based on code I have been implement
 
 ## Possible roadmap developements we need help with
 * NoSQL datastore option
+* Other database storage options
+* node.js webapi
+* docker image
 * JavaScript SDK
 * iOS SDK
 * Android SDK
