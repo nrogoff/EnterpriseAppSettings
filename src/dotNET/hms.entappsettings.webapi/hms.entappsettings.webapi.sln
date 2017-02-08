@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.webapi", "hms.entappsettings.webapi\hms.entappsettings.webapi.csproj", "{7DAD4E1A-C289-49AA-B7F1-611CF0B20A6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.webapi.Tests", "hms.entappsettings.webapi.Tests\hms.entappsettings.webapi.Tests.csproj", "{D7616C6A-A52D-4268-9A5E-37795A68EF4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.model", "hms.entappsettings.model\hms.entappsettings.model.csproj", "{0D57E738-3C34-4FEF-B794-698B27AC8443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.repository", "hms.entappsettings.repository\hms.entappsettings.repository.csproj", "{72B98ED1-54E7-4E3F-B478-AE0A1E3DA23E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.context", "hms.entappsettings.context\hms.entappsettings.context.csproj", "{18A6753A-ACBD-48B7-9A64-643A80E152FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.contracts", "hms.entappsettings.contracts\hms.entappsettings.contracts.csproj", "{3CA573F5-B14E-48B2-A62E-781928FDF512}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{449846A6-3C4B-433A-8102-249D49E57D09}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyVersionInfo.cs = AssemblyVersionInfo.cs
+		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+		Solution Readme.txt = Solution Readme.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.bll", "hms.entappsettings.bll\hms.entappsettings.bll.csproj", "{B3686705-A036-4F57-A1C5-B81C35E17851}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{CB38A063-1B6F-4E8A-BC14-9437E6F11D7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.webapi.clientsdk", "hms.entappsettings.webapi.clientsdk\hms.entappsettings.webapi.clientsdk.csproj", "{3D382E0C-9241-4EFB-B8D4-DFEEEBA0DD39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.repository.Tests", "hms.entappsettings.repository.Tests\hms.entappsettings.repository.Tests.csproj", "{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DAD4E1A-C289-49AA-B7F1-611CF0B20A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DAD4E1A-C289-49AA-B7F1-611CF0B20A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DAD4E1A-C289-49AA-B7F1-611CF0B20A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DAD4E1A-C289-49AA-B7F1-611CF0B20A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7616C6A-A52D-4268-9A5E-37795A68EF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7616C6A-A52D-4268-9A5E-37795A68EF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7616C6A-A52D-4268-9A5E-37795A68EF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7616C6A-A52D-4268-9A5E-37795A68EF4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D57E738-3C34-4FEF-B794-698B27AC8443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D57E738-3C34-4FEF-B794-698B27AC8443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D57E738-3C34-4FEF-B794-698B27AC8443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D57E738-3C34-4FEF-B794-698B27AC8443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B98ED1-54E7-4E3F-B478-AE0A1E3DA23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B98ED1-54E7-4E3F-B478-AE0A1E3DA23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B98ED1-54E7-4E3F-B478-AE0A1E3DA23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B98ED1-54E7-4E3F-B478-AE0A1E3DA23E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18A6753A-ACBD-48B7-9A64-643A80E152FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A6753A-ACBD-48B7-9A64-643A80E152FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A6753A-ACBD-48B7-9A64-643A80E152FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A6753A-ACBD-48B7-9A64-643A80E152FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA573F5-B14E-48B2-A62E-781928FDF512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA573F5-B14E-48B2-A62E-781928FDF512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA573F5-B14E-48B2-A62E-781928FDF512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA573F5-B14E-48B2-A62E-781928FDF512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3686705-A036-4F57-A1C5-B81C35E17851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3686705-A036-4F57-A1C5-B81C35E17851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3686705-A036-4F57-A1C5-B81C35E17851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3686705-A036-4F57-A1C5-B81C35E17851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D382E0C-9241-4EFB-B8D4-DFEEEBA0DD39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D382E0C-9241-4EFB-B8D4-DFEEEBA0DD39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D382E0C-9241-4EFB-B8D4-DFEEEBA0DD39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D382E0C-9241-4EFB-B8D4-DFEEEBA0DD39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3D382E0C-9241-4EFB-B8D4-DFEEEBA0DD39} = {CB38A063-1B6F-4E8A-BC14-9437E6F11D7F}
+	EndGlobalSection
+EndGlobal

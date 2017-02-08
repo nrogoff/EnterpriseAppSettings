@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>hms.entappsettings.contracts</name>
+    </assembly>
+    <members>
+        <member name="T:hms.entappsettings.contracts.AppSettingDTO">
+            <summary>
+            Application Setting
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.AppSettingId">
+            <summary>
+            The setting Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.SettingKey">
+            <summary>
+            Setting Key
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.TenantId">
+            <summary>
+            Tenant Id. Zero indicates that this setting applies to all affiliates unless overridden
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.SettingGroupId">
+            <summary>
+            The group that this setting applies to. Each client is will be interested in the settings contained in a group and it's parent groups
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.GroupPath">
+            <summary>
+            The group path
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.SettingSectionId">
+            <summary>
+            The setting UI section
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.TypeId">
+            <summary>
+            The type of setting value. e.g. HTML, TEXT, 
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.SettingValue">
+            <summary>
+            The setting value.
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.IsLocked">
+            <summary>
+            Indicates that this setting can not be edited in the DCR Admin UI
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.IsInternalOnly">
+            <summary>
+            Indicates that this setting should be hidden to all public requests.
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.Description">
+            <summary>
+            Description of the App Setting
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.ModifiedDate">
+            <summary>
+            Last modified date and time
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingDTO.ModifiedBy">
+            <summary>
+            Modified by
+            </summary>
+        </member>
+        <member name="T:hms.entappsettings.contracts.AppSettingGroupDTO">
+            <summary>
+            App Setting Group
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.AppSettingGroupId">
+            <summary>
+            Unique App Setting Group Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.ParentGroupId">
+            <summary>
+            Parent Group Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.Group">
+            <summary>
+            Group name
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.Description">
+            <summary>
+            Group Description
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.GroupPath">
+            <summary>
+            Group Path
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.ModifiedDate">
+            <summary>
+            Date last modified
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingGroupDTO.ModifiedBy">
+            <summary>
+            Last modified by
+            </summary>
+        </member>
+        <member name="T:hms.entappsettings.contracts.AppSettingSectionDTO">
+            <summary>
+            App Setting UI Section
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.AppSettingSectionId">
+            <summary>
+            Unique Section Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.ParentSectionId">
+            <summary>
+            Parent Section Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.Section">
+            <summary>
+            Section name
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.Description">
+            <summary>
+            Section description
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.ModifiedDate">
+            <summary>
+            Date last modified
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.ModifiedBy">
+            <summary>
+            Last modified by
+            </summary>
+        </member>
+        <member name="T:hms.entappsettings.contracts.AppSettingTypeDTO">
+            <summary>
+            App Setting value data type
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingTypeDTO.AppSettingTypeId">
+            <summary>
+            Unique Type Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingTypeDTO.AppSettingType_">
+            <summary>
+            Type code
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingTypeDTO.AppSettingTypeDescription">
+            <summary>
+            Type description
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingTypeDTO.ModifiedDate">
+            <summary>
+            Date last modified
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingTypeDTO.ModifiedBy">
+            <summary>
+            Last updated by
+            </summary>
+        </member>
+        <member name="T:hms.entappsettings.contracts.AppSettingWithOverrideDTO">
+            <summary>
+            AppSetting with overridden indicator. Used in the management UI to highlight or dim entries
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingWithOverrideDTO.Overridden">
+            <summary>
+            Has this setting been overridden by one at a high level
+            </summary>
+        </member>
+        <member name="T:hms.entappsettings.contracts.Automapper.EntAppContractsAutoMapperProfile">
+            <summary>
+            AutoMapper Bootstrap class for the Enterprise App Settings DTO Contracts. This should be called by the consuming service 
+            in its startup routines such as Global.asax.cs
+            <see cref="T:AutoMapper.Mapper" />
+            </summary>
+        </member>
+        <member name="M:hms.entappsettings.contracts.Automapper.EntAppContractsAutoMapperProfile.#ctor">
+            <summary>
+            AutoMapper profile for Enterprise Application Settings DTO Contracts
+            </summary>
+        </member>
+        <member name="T:hms.entappsettings.contracts.TenantDTO">
+            <summary>
+            Tenant
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.TenantDTO.TenantId">
+            <summary>
+            Unique Tenant Id
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.TenantDTO.TenantName">
+            <summary>
+            Tenant name (public display)
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.TenantDTO.TenantCode">
+            <summary>
+            Tenant code (used for reporting and reference)
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.TenantDTO.TenantDescription">
+            <summary>
+            Tenant Description
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.TenantDTO.ModifiedDate">
+            <summary>
+            Date last modified
+            </summary>
+        </member>
+        <member name="P:hms.entappsettings.contracts.TenantDTO.ModifiedBy">
+            <summary>
+            Last modified by
+            </summary>
+        </member>
+    </members>
+</doc>

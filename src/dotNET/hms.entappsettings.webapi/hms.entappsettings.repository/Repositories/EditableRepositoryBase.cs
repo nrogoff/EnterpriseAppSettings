@@ -1,0 +1,58 @@
+﻿// Copyright (c) 2017 Hard Medium Soft Ltd.  
+// All Rights Reserved.
+// 
+// Author: Nicholas Rogoff
+// Created: 2017 - 01 - 30
+// 
+// Project: hms.entappsettings.repository
+// Filename: EditableRepositoryBase.cs
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Reflection;
+using hms.entappsettings.context;
+using hms.entappsettings.context.Extensions;
+
+namespace hms.entappsettings.repository.Repositories
+{
+    /// <summary>
+    /// Ediatble Base Repository
+    /// </summary>
+    /// <typeparam name="T">The Entity that this repository manages</typeparam>
+    public abstract class EditableRepositoryBase<T> : ReadOnlyRepositoryBase<T>, IEditableRepository<T> where T : class
+    {
+        public EditableRepositoryBase(IEntAppSettingsDbContext dbContext): base(dbContext)
+        {      
+        }
+
+        /// <summary>
+        /// Delete a single entity
+        /// </summary>
+        /// <param name="entity">The entity to delete</param>
+        public void Delete(T entity)
+        {
+            _dbContext.Set<T>().Remove(entity);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Insert(T entity)
+        {
+            _dbContext.Set<T>().Add(entity);
+        }
+
+        public void Update(T entity)
+        {
+            var entry = _dbContext.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbContext.Set<T>().Attach(entity);
+                entry = _dbContext.Entry(entity);
+            }
+            entry.State = EntityState.Modified;
+        }
+    }
+}
