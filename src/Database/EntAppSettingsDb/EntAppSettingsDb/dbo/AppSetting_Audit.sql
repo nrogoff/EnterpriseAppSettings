@@ -9,6 +9,7 @@
     [SettingValue] NVARCHAR (MAX)  DEFAULT ('') NOT NULL,
 	[IsLocked] BIT  DEFAULT ((0)) NOT NULL,
     [IsInternalOnly] BIT DEFAULT ((0)) NOT NULL,
+    [IsSensitive] BIT DEFAULT ((0)) NOT NULL,
     [Description]  NVARCHAR (1000) NULL,
     [ModifiedDate] DATETIME        DEFAULT (getutcdate()) NOT NULL,
     [ModifiedBy]   NVARCHAR (50)   DEFAULT (suser_sname()) NOT NULL,

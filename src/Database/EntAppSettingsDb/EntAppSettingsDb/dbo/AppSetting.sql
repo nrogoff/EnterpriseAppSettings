@@ -30,8 +30,8 @@ CREATE TRIGGER [dbo].[Trigger_AppSetting_Audit]
     AS
     BEGIN
         SET NoCount ON;
-		INSERT INTO dbo.AppSetting_Audit ([AppSettingId],[SettingKey],[TenantId],[SettingGroupId],[SettingSectionId],[TypeId],[SettingValue],[IsLocked], [IsInternalOnly], [Description], [ModifiedDate], [ModifiedBy])
-		SELECT [AppSettingId],[SettingKey],[TenantId],[SettingGroupId],[SettingSectionId],[TypeId],[SettingValue],[IsLocked], [IsInternalOnly], [Description], [ModifiedDate], [ModifiedBy] FROM deleted
+		INSERT INTO dbo.AppSetting_Audit ([AppSettingId],[SettingKey],[TenantId],[SettingGroupId],[SettingSectionId],[TypeId],[SettingValue],[IsLocked], [IsSensitive], [IsInternalOnly], [Description], [ModifiedDate], [ModifiedBy])
+		SELECT [AppSettingId],[SettingKey],[TenantId],[SettingGroupId],[SettingSectionId],[TypeId],[SettingValue],[IsLocked], [IsInternalOnly], [IsSensitive], [Description], [ModifiedDate], [ModifiedBy] FROM deleted
     END
 
 
