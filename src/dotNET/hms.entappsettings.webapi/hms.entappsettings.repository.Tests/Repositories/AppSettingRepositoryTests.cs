@@ -75,20 +75,20 @@ namespace hms.entappsettings.repository.Repositories.Tests
             Assert.AreEqual(expectedCount, actual.Count());
         }
 
-        [TestCase(0, 0, false, 3, 1, 0)]
-        [TestCase(0, 0, true, 3, 1, 0)]
-        [TestCase(1, 0, false, 3, 1, 0)]
-        [TestCase(1, 0, true, 4, 1, 1)]
-        [TestCase(1, 1, false, 4, 1, 0)]
-        [TestCase(1, 1, true, 5, 1, 1)]
-        [TestCase(1, 2, false, 5, 1, 0)]
-        [TestCase(1, 2, true, 6, 1, 1)]
-        [TestCase(2, 0, false, 4, 2, 0)]
-        [TestCase(2, 0, true, 5, 2, 1)]
-        [TestCase(2, 4, false, 5, 2, 0)]
-        [TestCase(2, 4, true, 6, 2, 1)]
-        [TestCase(2, 6, false, 6, 2, 0)]
-        [TestCase(2, 6, true, 7, 2, 1)]
+        [TestCase(1, 1, false, 3, 1, 0)]
+        [TestCase(1, 1, true, 3, 1, 0)]
+        [TestCase(2, 1, false, 3, 1, 0)]
+        [TestCase(2, 1, true, 4, 1, 1)]
+        [TestCase(2, 2, false, 4, 1, 0)]
+        [TestCase(2, 2, true, 5, 1, 1)]
+        [TestCase(2, 3, false, 5, 1, 0)]
+        [TestCase(2, 3, true, 6, 1, 1)]
+        [TestCase(3, 1, false, 4, 2, 0)]
+        [TestCase(3, 1, true, 5, 2, 1)]
+        [TestCase(3, 5, false, 5, 2, 0)]
+        [TestCase(3, 5, true, 6, 2, 1)]
+        [TestCase(3, 7, false, 6, 2, 0)]
+        [TestCase(3, 7, true, 7, 2, 1)]
         [Test]
         public void GetResultantAppSettings_Return_Success(int tenantId, int appGroupId, bool includeInternal, 
             int expectedCount, int expectedLockedCount, int expectedInternalCount)
@@ -109,8 +109,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
             });
         }
 
-        [TestCase(99, 0, false)]
-        [TestCase(99, 0, true)]
+        [TestCase(99, 1, false)]
+        [TestCase(99, 1, true)]
         [TestCase(99, 99, false)]
         [TestCase(99, 99, true)]
         [Test]
@@ -129,8 +129,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
             act.ShouldThrowExactly<ArgumentOutOfRangeException>().Where(e => e.Message.StartsWith("Tenant"));
         }
 
-        [TestCase(0, 99, false)]
-        [TestCase(0, 99, true)]
+        [TestCase(1, 99, false)]
+        [TestCase(1, 99, true)]
         [Test]
         public void GetResultantAppSettings_GroupNotExist_Null(int tenantId, int appGroupId, bool includeInternal)
         {

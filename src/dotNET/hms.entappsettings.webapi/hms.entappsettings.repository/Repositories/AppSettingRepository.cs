@@ -19,11 +19,17 @@ namespace hms.entappsettings.repository.Repositories
 {
     public class AppSettingRepository:EditableRepositoryBase<AppSetting>, IAppSettingRepository
     {
+        /// <summary>
+        /// The Id of the Platform Tenant (default = 1). Only here in case someone really wants it to be zero and have created it that way in the database.
+        /// </summary>
+        public int PlatformTenantId { get; set; }
+
         private readonly IAppSettingGroupRepository _appSettingGroupRepository;
         private readonly ITenantRepository _tenantRepository;
 
         public AppSettingRepository(IEntAppSettingsDbContext dbContext, IAppSettingGroupRepository appSettingGroupRepository, ITenantRepository tenantRepository) : base(dbContext)
         {
+            PlatformTenantId = 1;
             _appSettingGroupRepository = appSettingGroupRepository;
             _tenantRepository = tenantRepository;
         }
@@ -66,9 +72,7 @@ namespace hms.entappsettings.repository.Repositories
 
             var resultantSettings = new List<AppSetting>();
             
-            var allTenantsAppSettings = tenantId != null ? GetAllAppSettings(includeInternal).Where(s => s.TenantId == tenantId.Value || s.TenantId == 0).ToList() : GetAllAppSettings(includeInternal).ToList();
-            var groupParents = _appSettingGroupRepository.GetAppSettingGroupParents(appSettingGroupId).ToList();
-
+            var allTenantsAppSettings = tenantId != null ? GetAllAppSettings(includeInternal).Where(s => s.TenantId == tenantId.Value || s.TenantId == PlatformTenantId).ToList() : GetAllAppSettings(includeInternal).ToList();
 
             //filter to only app settings in passed group and parent groups
             var allAffiliateSettingsInGroup = (from setting in allTenantsAppSettings

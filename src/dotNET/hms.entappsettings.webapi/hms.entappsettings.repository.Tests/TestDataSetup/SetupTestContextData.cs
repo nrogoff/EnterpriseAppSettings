@@ -28,8 +28,14 @@ namespace hms.entappsettings.repository.Repositories.Tests
         [OneTimeSetUp]
         public void CreateData()
         {
-
-            //return;
+            // Set this to true once to clear the database if it's flagging as populated
+            // BE REALLY SURE YOU HAVE THE RIGHT DATABASE CONNECTION STRING!!
+            bool ForceInitialClearDownofDb = false;
+            if (ForceInitialClearDownofDb)
+            {
+                Console.WriteLine("#### !! Forced - Clearing database...I hope it's not production !! ");
+                TearDownTestData();
+            }
 
             Console.WriteLine("#### Creating test data");
 
@@ -60,7 +66,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
         [OneTimeTearDown]
         public void TearDownTestData()
         {
-            return;
+            //return;
 
             Console.WriteLine("#### Tearing down test data");
 
@@ -99,11 +105,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
             {
                 new AppSetting
                 {
-                    AppSettingId = 0,
+                    AppSettingId = 1,
                     SettingKey = "TestSetting0",
-                    TenantId = 0,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    TenantId = 1,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 0",
                     IsLocked = true,
@@ -114,11 +120,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 1,
+                    AppSettingId = 2,
                     SettingKey = "TestSetting1",
-                    TenantId = 0,
-                    SettingGroupId = 0,
-                    SettingSectionId = 1,
+                    TenantId = 1,
+                    SettingGroupId = 1,
+                    SettingSectionId = 2,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 1",
                     IsLocked = false,
@@ -129,11 +135,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 2,
+                    AppSettingId = 3,
                     SettingKey = "TestSetting1",
-                    TenantId = 1,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    TenantId = 2,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 1 for Tenant 1",
                     IsLocked = false,
@@ -144,11 +150,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 3,
+                    AppSettingId = 4,
                     SettingKey = "TestSetting3InternalOnly",
-                    TenantId = 1,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    TenantId = 2,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 3 Internal",
                     IsLocked = false,
@@ -159,11 +165,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 4,
+                    AppSettingId = 5,
                     SettingKey = "TestSetting1",
-                    TenantId = 1,
-                    SettingGroupId = 1,
-                    SettingSectionId = 0,
+                    TenantId = 2,
+                    SettingGroupId = 2,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 1 at level 2",
                     IsLocked = false,
@@ -174,11 +180,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 5,
+                    AppSettingId = 6,
                     SettingKey = "TestSetting4",
-                    TenantId = 1,
-                    SettingGroupId = 1,
-                    SettingSectionId = 0,
+                    TenantId = 2,
+                    SettingGroupId = 2,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 4 at level 2",
                     IsLocked = false,
@@ -189,11 +195,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 6,
+                    AppSettingId = 7,
                     SettingKey = "TestSetting1",
-                    TenantId = 1,
-                    SettingGroupId = 2,
-                    SettingSectionId = 0,
+                    TenantId = 2,
+                    SettingGroupId = 3,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 1 at level 3",
                     IsLocked = false,
@@ -204,41 +210,41 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 7,
-                    SettingKey = "TestSetting5",
-                    TenantId = 1,
-                    SettingGroupId = 2,
-                    SettingSectionId = 0,
-                    TypeId = SettingType.TEXT,
-                    SettingValue = "Test Setting 5 at level 3",
-                    IsLocked = false,
-                    IsInternalOnly = false,
-                    Description = "Test Setting 5 at level 3",
-                    ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integration Test"
-                },
-                new AppSetting
-                {
-                    AppSettingId = 14,
-                    SettingKey = "TestSetting5",
-                    TenantId = 1,
-                    SettingGroupId = 5,
-                    SettingSectionId = 0,
-                    TypeId = SettingType.TEXT,
-                    SettingValue = "Test Setting 5 at level 3",
-                    IsLocked = false,
-                    IsInternalOnly = false,
-                    Description = "Test Setting 5 at level 3",
-                    ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integration Test"
-                },
-                new AppSetting
-                {
                     AppSettingId = 8,
-                    SettingKey = "TestSetting1",
+                    SettingKey = "TestSetting5",
                     TenantId = 2,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    SettingGroupId = 3,
+                    SettingSectionId = 1,
+                    TypeId = SettingType.TEXT,
+                    SettingValue = "Test Setting 5 at level 3",
+                    IsLocked = false,
+                    IsInternalOnly = false,
+                    Description = "Test Setting 5 at level 3",
+                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedBy = "Integration Test"
+                },
+                new AppSetting
+                {
+                    AppSettingId = 15,
+                    SettingKey = "TestSetting5",
+                    TenantId = 2,
+                    SettingGroupId = 6,
+                    SettingSectionId = 1,
+                    TypeId = SettingType.TEXT,
+                    SettingValue = "Test Setting 5 at level 3",
+                    IsLocked = false,
+                    IsInternalOnly = false,
+                    Description = "Test Setting 5 at level 3",
+                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedBy = "Integration Test"
+                },
+                new AppSetting
+                {
+                    AppSettingId = 9,
+                    SettingKey = "TestSetting1",
+                    TenantId = 3,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 1 for Tenant 2",
                     IsLocked = false,
@@ -249,11 +255,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 9,
+                    AppSettingId = 10,
                     SettingKey = "TestSetting6",
-                    TenantId = 2,
-                    SettingGroupId = 4,
-                    SettingSectionId = 0,
+                    TenantId = 3,
+                    SettingGroupId = 5,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 6 for Tenant 2",
                     IsLocked = false,
@@ -264,11 +270,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 10,
+                    AppSettingId = 11,
                     SettingKey = "TestSetting7",
-                    TenantId = 2,
-                    SettingGroupId = 6,
-                    SettingSectionId = 1,
+                    TenantId = 3,
+                    SettingGroupId = 7,
+                    SettingSectionId = 2,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 7",
                     IsLocked = false,
@@ -279,11 +285,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 11,
+                    AppSettingId = 12,
                     SettingKey = "TestSetting8Internal",
-                    TenantId = 2,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    TenantId = 3,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 8 Internal",
                     IsLocked = false,
@@ -294,11 +300,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 12,
+                    AppSettingId = 13,
                     SettingKey = "TestSetting12",
-                    TenantId = 2,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    TenantId = 3,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 12",
                     IsLocked = true,
@@ -309,11 +315,11 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSetting
                 {
-                    AppSettingId = 13,
+                    AppSettingId = 14,
                     SettingKey = "TestSetting13",
-                    TenantId = 0,
-                    SettingGroupId = 0,
-                    SettingSectionId = 0,
+                    TenantId = 1,
+                    SettingGroupId = 1,
+                    SettingSectionId = 1,
                     TypeId = SettingType.TEXT,
                     SettingValue = "Test Setting 13",
                     IsLocked = false,
@@ -333,30 +339,30 @@ namespace hms.entappsettings.repository.Repositories.Tests
             {
                 new Tenant
                 {
-                    TenantId = 0,
+                    TenantId = 1,
                     TenantCode = "PLATFORM",
                     TenantName = "Platform",
                     TenantDescription = "Applies to all tenants",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
-                },
-                new Tenant
-                {
-                    TenantId = 1,
-                    TenantCode = "TESTTENANT1",
-                    TenantName = "Test Tenant 1",
-                    TenantDescription = "Integration Test Tenant 1",
-                    ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new Tenant
                 {
                     TenantId = 2,
+                    TenantCode = "TESTTENANT1",
+                    TenantName = "Test Tenant 1",
+                    TenantDescription = "Integration Test Tenant 1",
+                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedBy = "Integration Test"
+                },
+                new Tenant
+                {
+                    TenantId = 3,
                     TenantCode = "TESTTENANT2",
                     TenantName = "Test Tenant 2",
                     TenantDescription = "Integration Test Tenant 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 }
             };
 
@@ -370,7 +376,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
             {
                 new AppSettingSection
                 {
-                    AppSettingSectionId = 0,
+                    AppSettingSectionId = 1,
                     ParentSectionId = null,
                     Section = "General",
                     Description = "Platform general settings",
@@ -380,8 +386,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSettingSection
                 {
-                    AppSettingSectionId = 1,
-                    ParentSectionId = 4,
+                    AppSettingSectionId = 2,
+                    ParentSectionId = 5,
                     Section = "Versions",
                     Description = "Version Info. Should be under ",
                     Ordinality = 0,
@@ -390,8 +396,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSettingSection
                 {
-                    AppSettingSectionId = 2,
-                    ParentSectionId = 0,
+                    AppSettingSectionId = 3,
+                    ParentSectionId = 1,
                     Section = "General-Part-2",
                     Description = "Subsection 2 of general",
                     Ordinality = 100,
@@ -400,8 +406,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSettingSection
                 {
-                    AppSettingSectionId = 3,
-                    ParentSectionId = 0,
+                    AppSettingSectionId = 4,
+                    ParentSectionId = 1,
                     Section = "General-Part-1",
                     Description = "Subsection 1 of general",
                     Ordinality = 50,
@@ -410,7 +416,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 },
                 new AppSettingSection
                 {
-                    AppSettingSectionId = 4,
+                    AppSettingSectionId = 5,
                     ParentSectionId = null,
                     Section = "About",
                     Description = "Subsection 1 of general",
@@ -427,14 +433,14 @@ namespace hms.entappsettings.repository.Repositories.Tests
         {
             var appSettingTypes = new List<AppSettingType>
             {
-                new AppSettingType{AppSettingTypeId = SettingType.TEXT, AppSettingType_ = SettingType.TEXT.ToString("G"), AppSettingTypeDescription = "Text Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.INTEGER, AppSettingType_ = SettingType.INTEGER.ToString("G"), AppSettingTypeDescription = "Integer (whole number) only", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.DECIMAL, AppSettingType_ = SettingType.DECIMAL.ToString("G"), AppSettingTypeDescription = "Numbers that are not integers", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.BOOL, AppSettingType_ = SettingType.BOOL.ToString("G"), AppSettingTypeDescription = "Boolean content (true = 1, false = 0)", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.CSV, AppSettingType_ = SettingType.CSV.ToString("G"), AppSettingTypeDescription = "Comma Seperated List. Use double quotes for fields that require it.", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.HTML, AppSettingType_ = SettingType.HTML.ToString("G"), AppSettingTypeDescription = "HTML Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.JSON, AppSettingType_ = SettingType.JSON.ToString("G"), AppSettingTypeDescription = "JSON Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" },
-                new AppSettingType{AppSettingTypeId = SettingType.XML, AppSettingType_ = SettingType.XML.ToString("G"), AppSettingTypeDescription = "XML Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integartion Test" }
+                new AppSettingType{AppSettingTypeId = SettingType.TEXT, AppSettingType_ = SettingType.TEXT.ToString("G"), AppSettingTypeDescription = "Text Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.INTEGER, AppSettingType_ = SettingType.INTEGER.ToString("G"), AppSettingTypeDescription = "Integer (whole number) only", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.DECIMAL, AppSettingType_ = SettingType.DECIMAL.ToString("G"), AppSettingTypeDescription = "Numbers that are not integers", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.BOOL, AppSettingType_ = SettingType.BOOL.ToString("G"), AppSettingTypeDescription = "Boolean content (true = 1, false = 0)", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.CSV, AppSettingType_ = SettingType.CSV.ToString("G"), AppSettingTypeDescription = "Comma Seperated List. Use double quotes for fields that require it.", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.HTML, AppSettingType_ = SettingType.HTML.ToString("G"), AppSettingTypeDescription = "HTML Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.JSON, AppSettingType_ = SettingType.JSON.ToString("G"), AppSettingTypeDescription = "JSON Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" },
+                new AppSettingType{AppSettingTypeId = SettingType.XML, AppSettingType_ = SettingType.XML.ToString("G"), AppSettingTypeDescription = "XML Content", ModifiedDate = DateTime.UtcNow, ModifiedBy = "Integration Test" }
             };
             intDbContext.AppSettingTypes.AddRange(appSettingTypes);
             intDbContext.SaveChanges();
@@ -457,66 +463,66 @@ namespace hms.entappsettings.repository.Repositories.Tests
             {
                 new AppSettingGroup
                 {
-                    AppSettingGroupId = 0,
+                    AppSettingGroupId = 1,
                     ParentGroupId = null,
                     Group = "Core",
                     Description = "Settings apply to ALL consumers and is the root of all inherited settings.",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
-                },
-                new AppSettingGroup
-                {
-                    AppSettingGroupId = 1,
-                    ParentGroupId = 0,
-                    Group = "TestLevel2-1",
-                    Description = String.Empty,
-                    ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSettingGroup
                 {
                     AppSettingGroupId = 2,
                     ParentGroupId = 1,
-                    Group = "TestLevel3-1",
+                    Group = "TestLevel2-1",
                     Description = String.Empty,
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSettingGroup
                 {
                     AppSettingGroupId = 3,
-                    ParentGroupId = 1,
-                    Group = "TestLevel3-2",
+                    ParentGroupId = 2,
+                    Group = "TestLevel3-1",
                     Description = String.Empty,
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSettingGroup
                 {
                     AppSettingGroupId = 4,
-                    ParentGroupId = 5,
-                    Group = "TestLevel3-3",
+                    ParentGroupId = 2,
+                    Group = "TestLevel3-2",
                     Description = String.Empty,
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSettingGroup
                 {
                     AppSettingGroupId = 5,
-                    ParentGroupId = 0,
-                    Group = "TestLevel2-2",
+                    ParentGroupId = 6,
+                    Group = "TestLevel3-3",
                     Description = String.Empty,
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSettingGroup
                 {
                     AppSettingGroupId = 6,
-                    ParentGroupId = 5,
+                    ParentGroupId = 1,
+                    Group = "TestLevel2-2",
+                    Description = String.Empty,
+                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedBy = "Integration Test"
+                },
+                new AppSettingGroup
+                {
+                    AppSettingGroupId = 7,
+                    ParentGroupId = 6,
                     Group = "TestLevel3-4",
                     Description = String.Empty,
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Integartion Test"
+                    ModifiedBy = "Integration Test"
                 }
             };
 

@@ -56,10 +56,10 @@ namespace hms.entappsettings.repository.Repositories.Tests
 
 
         // Add or remove [TestCase] attributes for multiple cases
-        [TestCase(0, 1)]
-        [TestCase(1, 2)]
-        [TestCase(6, 3)]
-        [TestCase(7, 0)]
+        [TestCase(1, 1)]
+        [TestCase(2, 2)]
+        [TestCase(7, 3)]
+        [TestCase(8, 0)]
         //[TestCaseSource(typeof(GroupsParentsCaseSource))]
         [Test]
         public void GetAppSettingParents_Exists_Success(int groupId, int expectedCount)
