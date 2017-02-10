@@ -44,6 +44,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
         {
             _appSettingGroupRepository.Dispose();
             _appSettingGroupRepository = null;
+            _dbContext.Dispose();
+            _dbContext = null;
         }
 
         // Use to run code afer all tests have run 

@@ -41,6 +41,7 @@ namespace hms.entappsettings.webapi.Controllers
         /// Returns all the App Setting Groups
         /// </summary>
         /// <returns></returns>
+        //[Authorize]
         public IQueryable<AppSettingGroupDTO> GetAppSettingGroups()
         {
             try

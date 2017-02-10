@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>EntAppSettingsLogo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -91,6 +94,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EntAppSettingsDatabase.cs</LastGenOutput>
     </Content>
+    <Content Include="EntAppSettingsLogo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

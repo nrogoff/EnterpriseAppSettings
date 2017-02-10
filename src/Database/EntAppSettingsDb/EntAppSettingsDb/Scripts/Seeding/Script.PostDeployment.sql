@@ -30,7 +30,7 @@ INSERT INTO [dbo].[AppSettingSection](
 	[Section],
 	[Description])
 VALUES
-	(0, 'General','Platform general settings')
+	(1, 'General','Platform general settings')
 GO
 SET IDENTITY_INSERT [dbo].[AppSettingSection] OFF
 GO
@@ -42,7 +42,7 @@ INSERT INTO [dbo].[AppSettingGroup](
 	[Group],
 	[Description])
 VALUES
-	(0, 'Core', 'Settings apply to ALL consumers and is the root of all inherited settings.')
+	(1, 'Core', 'Settings apply to ALL consumers and is the root of all inherited settings.')
 GO
 SET IDENTITY_INSERT [dbo].[AppSettingGroup] OFF
 GO
@@ -52,7 +52,7 @@ GO
 INSERT INTO [dbo].[Tenant](
 	[TenantId],[TenantName],[TenantCode],[TenantDescription])
 	VALUES
-		(0,'Platform','PLATFORM','Applies to all tenants')
+		(1,'Platform','PLATFORM','Applies to all tenants')
 GO
 SET IDENTITY_INSERT [dbo].[Tenant] OFF
 GO
@@ -66,6 +66,6 @@ INSERT INTO [dbo].[AppSetting](
 	[SettingValue],
 	[Description])
 VALUES
-	('TestSetting',0,0,1,0,'This is a test text setting value','Description: Remove this test setting')
+	('TestSetting',1,1,1,1,'This is a test text setting value','Description: Remove this test setting')
 GO
 

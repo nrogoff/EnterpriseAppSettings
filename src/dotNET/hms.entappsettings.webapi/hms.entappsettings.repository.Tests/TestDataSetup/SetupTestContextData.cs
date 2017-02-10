@@ -33,10 +33,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
 
             Console.WriteLine("#### Creating test data");
 
-            var connString = ConfigurationManager.ConnectionStrings;
-
-
-            var intDbContext = new EntAppSettingsDbContext(connString["TESTEntAppSettingDb"].ConnectionString);
+            var connString = ConfigurationManager.ConnectionStrings["TESTEntAppSettingDb"].ConnectionString;
+            var intDbContext = new EntAppSettingsDbContext(connString);
 
             //Check database is a test instance
             //if any groups exist then exit
@@ -52,6 +50,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
 
             //Clear context object
             intDbContext.Dispose();
+            intDbContext = null;
         }
 
 
@@ -61,10 +60,12 @@ namespace hms.entappsettings.repository.Repositories.Tests
         [OneTimeTearDown]
         public void TearDownTestData()
         {
-            //return;
+            return;
 
             Console.WriteLine("#### Tearing down test data");
-            var intDbContext = new EntAppSettingsDbContext("TESTEntAppSettingDb");
+
+            var connString = ConfigurationManager.ConnectionStrings["TESTEntAppSettingDb"].ConnectionString;
+            var intDbContext = new EntAppSettingsDbContext(connString);
 
             var tableList = new List<string>()
             {
@@ -79,7 +80,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
             {
                 intDbContext.Database.ExecuteSqlCommand($"DELETE FROM [dbo].[{tablename}]");
                 //reset identity cols
-                var reseedValue = tablename == "AppSettingType" ? 0 : -1;
+                //var reseedValue = tablename == "AppSettingType" ? 0 : -1;
+                var reseedValue = 0;
                 intDbContext.Database.ExecuteSqlCommand($"DBCC CHECKIDENT ('{tablename}', RESEED, {reseedValue})");
             }
 
@@ -88,6 +90,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
 
             //Clear context object
             intDbContext.Dispose();
+            intDbContext = null;
         }
 
         private void PopulateAppSettings(EntAppSettingsDbContext intDbContext)
@@ -107,7 +110,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Setting 1 for all",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -122,7 +125,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Setting 1 for all",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -137,7 +140,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 3 for Tenant 1 Internal",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -152,7 +155,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = true,
                     Description = "Test Setting 3 Internal",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -167,7 +170,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 1 at level 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -182,7 +185,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 4 at level 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -197,7 +200,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 1 at level 3",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -212,7 +215,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 5 at level 3",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -227,7 +230,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 5 at level 3",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -242,7 +245,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 1 for Tenant 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -257,7 +260,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 6 for Tenant 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -272,7 +275,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Test Setting 7 tenant 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -287,7 +290,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = true,
                     Description = "Test Setting 8 Internal tenant 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -302,7 +305,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Setting 12 for tenant 2",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 },
                 new AppSetting
                 {
@@ -317,7 +320,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                     IsInternalOnly = false,
                     Description = "Setting 13 for all",
                     ModifiedDate = DateTime.UtcNow,
-                    ModifiedBy = "Inetgration Test"
+                    ModifiedBy = "Integration Test"
                 }
             };
             intDbContext.AppSettings.AddRange(settings);

@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>EntAppSettingsLogo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeFirstStoreFunctions, Version=0.1.0.0, Culture=neutral, PublicKeyToken=46c4868af4307d2c, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.CodeFirstStoreFunctions.1.0.0\lib\net45\CodeFirstStoreFunctions.dll</HintPath>
@@ -95,6 +98,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EntAppSettingsDatabase.cs</LastGenOutput>
     </Content>
+    <Content Include="EntAppSettingsLogo.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

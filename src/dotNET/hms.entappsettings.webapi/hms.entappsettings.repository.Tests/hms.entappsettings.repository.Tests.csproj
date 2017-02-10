@@ -110,6 +110,21 @@
       <Name>hms.entappsettings.repository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="IntegrationTestData\EntAppSettingsDb-INTTEST.ldf">
+      <DependentUpon>EntAppSettingsDb-INTTEST.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST_log.ldf">
+      <DependentUpon>EntAppSettingsDb-INTTEST.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

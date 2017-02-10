@@ -46,6 +46,8 @@ namespace hms.entappsettings.repository.Repositories.Tests
         {
             _appSettingRepository.Dispose();
             _appSettingRepository = null;
+            _dbContext.Dispose();
+            _dbContext = null;
 
         }
 
