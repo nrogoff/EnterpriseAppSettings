@@ -54,5 +54,15 @@ namespace hms.entappsettings.repository.Repositories
             }
             entry.State = EntityState.Modified;
         }
+
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        public void SaveChangesAsync()
+        {
+            _dbContext.SaveChangesAsync();
+        }
     }
 }

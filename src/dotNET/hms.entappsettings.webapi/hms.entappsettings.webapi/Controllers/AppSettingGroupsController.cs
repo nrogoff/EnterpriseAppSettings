@@ -98,40 +98,53 @@ namespace hms.entappsettings.webapi.Controllers
             return Ok(result);
         }
 
-        //// PUT: api/AppSettingGroups/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutAppSettingGroup(int id, AppSettingGroup appSettingGroup)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        /// <summary>
+        /// Update an existing AppSettingGroup
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appSettingGroupDTO"></param>
+        /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="400">Bad Request: Id does not match the body</response>
+        /// <response code="404">Not Found: AppSettingGroup Id not found</response>
+        [Route("{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAppSettingGroup(int id, AppSettingGroupDTO appSettingGroupDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != appSettingGroup.AppSettingGroupId)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != appSettingGroupDTO.AppSettingGroupId)
+            {
+                return BadRequest();
+            }
 
-        //    db.Entry(appSettingGroup).State = EntityState.Modified;
+            try
+            {
+                _appSettingGroupRepository.Update(_mapper.Map<AppSettingGroup>(appSettingGroupDTO));
+                _appSettingGroupRepository.SaveChanges();
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!AppSettingGroupExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+                //db.Entry(appSettingGroup).State = EntityState.Modified;
+
+                //db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AppSettingGroupExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         //// POST: api/AppSettingGroups
         //[ResponseType(typeof(AppSettingGroup))]
@@ -164,10 +177,10 @@ namespace hms.entappsettings.webapi.Controllers
         //    return Ok(appSettingGroup);
         //}
 
-        //private bool AppSettingGroupExists(int id)
-        //{
-        //    return db.AppSettingGroups.Count(e => e.AppSettingGroupId == id) > 0;
-        //}
+        private bool AppSettingGroupExists(int id)
+        {
+            return _appSettingGroupRepository.GetById(id) != null;
+        }
 
         protected override void Dispose(bool disposing)
         {

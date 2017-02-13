@@ -304,6 +304,9 @@
     <Content Include="App_Data\EntAppSettingsDb-LOCAL.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Data\EntAppSettingsDb-LOCAL_log.ldf">
+      <DependentUpon>EntAppSettingsDb-LOCAL.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\hms.entappsettings.contracts.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
