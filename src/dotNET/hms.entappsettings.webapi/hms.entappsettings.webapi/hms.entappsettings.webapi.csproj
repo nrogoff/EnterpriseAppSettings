@@ -356,6 +356,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="BuildScripts\CopyXmlDocs.bat" />
+    <Content Include="BuildScripts\CreateLocalDbInstance.bat" />
     <None Include="Properties\PublishProfiles\kwizwar-entappsettings-ne - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Readme.txt" />
