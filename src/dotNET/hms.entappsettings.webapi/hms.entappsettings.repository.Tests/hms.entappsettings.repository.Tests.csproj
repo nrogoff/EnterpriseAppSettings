@@ -139,7 +139,9 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files\Microsoft SQL Server\120\Tools\Binn\SqlLocalDB.exe" create "ProjectsV12" 12.0 -s</PostBuildEvent>
+    <PostBuildEvent>"C:\Program Files\Microsoft SQL Server\120\Tools\Binn\SqlLocalDB.exe" create "V12.0" 12.0 -s
+sqlcmd -S "(localdb)\V12.0" -Q "EXEC sys.sp_configure N'contained database authentication', N'1';"
+sqlcmd -S "(localdb)\V12.0" -Q "RECONFIGURE WITH OVERRIDE;"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
