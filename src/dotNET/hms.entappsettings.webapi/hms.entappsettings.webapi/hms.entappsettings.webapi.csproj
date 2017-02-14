@@ -299,14 +299,11 @@
     <Compile Include="Utils\MultiXmlDocumentationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\EntAppSettingsDb-LOCAL.ldf">
+    <Content Include="App_Data\EntAppSettingsDb-LOCAL-v12.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\EntAppSettingsDb-LOCAL.mdf">
+    <Content Include="App_Data\EntAppSettingsDb-LOCAL-v12.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\EntAppSettingsDb-LOCAL_log.ldf">
-      <DependentUpon>EntAppSettingsDb-LOCAL.mdf</DependentUpon>
     </Content>
     <Content Include="App_Data\hms.entappsettings.contracts.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

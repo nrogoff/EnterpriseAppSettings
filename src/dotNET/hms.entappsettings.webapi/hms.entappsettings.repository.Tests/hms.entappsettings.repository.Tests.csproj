@@ -111,17 +111,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="IntegrationTestData\EntAppSettingsDb-INTTEST.ldf">
-      <DependentUpon>EntAppSettingsDb-INTTEST.mdf</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST.mdf">
+    <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST-v12.ldf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST_log.ldf">
-      <DependentUpon>EntAppSettingsDb-INTTEST.mdf</DependentUpon>
+    <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST-v12.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
