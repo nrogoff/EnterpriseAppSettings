@@ -35,6 +35,16 @@ namespace hms.entappsettings.repository.Repositories
             return _dbContext.GetParentAppSettingGroups(appSettingGroupId);
         }
 
+        /// <summary>
+        /// Add an AppSettingGroup
+        /// </summary>
+        /// <param name="appSettingGroup"></param>
+        public void Add(AppSettingGroup appSettingGroup)
+        {
+            _dbContext.AppSettingGroups.Add(appSettingGroup);
+        }
+
+
 
         #region IDisposable
 
@@ -80,6 +90,7 @@ namespace hms.entappsettings.repository.Repositories
                 //want to clean up managed resources
             }
         }
+
 
         #endregion
 

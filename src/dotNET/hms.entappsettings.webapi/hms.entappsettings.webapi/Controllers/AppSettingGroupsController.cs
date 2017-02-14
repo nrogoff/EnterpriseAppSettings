@@ -60,8 +60,10 @@ namespace hms.entappsettings.webapi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
         [ResponseType(typeof(AppSettingGroupDTO))]
-        public IHttpActionResult GetAppSettingGroup(int id)
+        public IHttpActionResult GetAppSettingGroup([FromUri]int id)
         {
             AppSettingGroup appSettingGroup = _appSettingGroupRepository.GetById(id);
             if (appSettingGroup == null)
@@ -108,6 +110,7 @@ namespace hms.entappsettings.webapi.Controllers
         /// <response code="400">Bad Request: Id does not match the body</response>
         /// <response code="404">Not Found: AppSettingGroup Id not found</response>
         [Route("{id}")]
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutAppSettingGroup(int id, AppSettingGroupDTO appSettingGroupDTO)
         {
@@ -146,36 +149,48 @@ namespace hms.entappsettings.webapi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //// POST: api/AppSettingGroups
-        //[ResponseType(typeof(AppSettingGroup))]
-        //public IHttpActionResult PostAppSettingGroup(AppSettingGroup appSettingGroup)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        /// <summary>
+        /// Add an AppSettingGroup
+        /// </summary>
+        /// <param name="appSettingGroupDTO"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ResponseType(typeof(AppSettingGroupDTO))]
+        public IHttpActionResult PostAppSettingGroup(AppSettingGroupDTO appSettingGroupDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    db.AppSettingGroups.Add(appSettingGroup);
-        //    db.SaveChanges();
+            var appSettingGroup = _mapper.Map<AppSettingGroup>(appSettingGroupDTO);
 
-        //    return CreatedAtRoute("DefaultApi", new { id = appSettingGroup.AppSettingGroupId }, appSettingGroup);
-        //}
+            _appSettingGroupRepository.Add(appSettingGroup);
 
-        //// DELETE: api/AppSettingGroups/5
-        //[ResponseType(typeof(AppSettingGroup))]
-        //public IHttpActionResult DeleteAppSettingGroup(int id)
-        //{
-        //    AppSettingGroup appSettingGroup = db.AppSettingGroups.Find(id);
-        //    if (appSettingGroup == null)
-        //    {
-        //        return NotFound();
-        //    }
+            _appSettingGroupRepository.SaveChanges();
 
-        //    db.AppSettingGroups.Remove(appSettingGroup);
-        //    db.SaveChanges();
+            return CreatedAtRoute("DefaultApi", new { id = appSettingGroup.AppSettingGroupId }, appSettingGroupDTO);
+        }
 
-        //    return Ok(appSettingGroup);
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{id}")]
+        [ResponseType(typeof(AppSettingGroupDTO))]
+        public IHttpActionResult DeleteAppSettingGroup(int id)
+        {
+            var appSettingGroup = _appSettingGroupRepository.GetById(id);
+            if (appSettingGroup == null)
+            {
+                return NotFound();
+            }
+            _appSettingGroupRepository.Delete(appSettingGroup);
+            _appSettingGroupRepository.SaveChanges();
+            return Ok(_mapper.Map<AppSettingGroupDTO>(appSettingGroup));
+        }
 
         private bool AppSettingGroupExists(int id)
         {

@@ -19,7 +19,7 @@ namespace hms.entappsettings.contracts
         /// <summary>
         /// Unique App Setting Group Id
         /// </summary>
-        public int AppSettingGroupId { get; set; } 
+        public int? AppSettingGroupId { get; set; } 
 
         /// <summary>
         /// Parent Group Id

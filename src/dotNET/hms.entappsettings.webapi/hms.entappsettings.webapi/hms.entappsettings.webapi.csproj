@@ -290,6 +290,7 @@
     <Compile Include="Controllers\AppSettingGroupsController.cs" />
     <Compile Include="Controllers\AppSettingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TenantsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

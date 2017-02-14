@@ -542,6 +542,20 @@
             <response code="400">Bad Request: Id does not match the body</response>
             <response code="404">Not Found: AppSettingGroup Id not found</response>
         </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingGroupsController.PostAppSettingGroup(hms.entappsettings.contracts.AppSettingGroupDTO)">
+            <summary>
+            Add an AppSettingGroup
+            </summary>
+            <param name="appSettingGroupDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingGroupsController.DeleteAppSettingGroup(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:hms.entappsettings.webapi.Controllers.AppSettingsController">
             <summary>
             Public Api for getting Enterprise App Settings
