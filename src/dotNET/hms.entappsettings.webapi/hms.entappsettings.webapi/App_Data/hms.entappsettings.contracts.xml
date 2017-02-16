@@ -139,6 +139,11 @@
             Section description
             </summary>
         </member>
+        <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.Ordinality">
+            <summary>
+            The ordinality of the section
+            </summary>
+        </member>
         <member name="P:hms.entappsettings.contracts.AppSettingSectionDTO.ModifiedDate">
             <summary>
             Date last modified
