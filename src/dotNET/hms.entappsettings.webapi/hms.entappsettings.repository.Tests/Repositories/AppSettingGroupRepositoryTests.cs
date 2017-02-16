@@ -4,10 +4,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 using hms.entappsettings.context;
+using hms.entappsettings.model;
 
 namespace hms.entappsettings.repository.Repositories.Tests
 {
@@ -76,6 +79,157 @@ namespace hms.entappsettings.repository.Repositories.Tests
             Assert.AreEqual(expectedCount, actual.Count);
         }
 
+        [Test]
+        public void AddAppSettingGroup_Add_Success()
+        {
+            // ==== Arrange ====
+            var appSettingGroup = new AppSettingGroup
+            {
+                Group = "TestGroup1",
+                Description = "This is part of integration testing",
+                ParentGroupId = 1,
+                ModifiedBy = "Integartion Test",
+                ModifiedDate = DateTime.UtcNow
+            };
+
+            // ==== Act ====
+
+            _appSettingGroupRepository.Add(appSettingGroup);
+            _appSettingGroupRepository.SaveChanges();
+
+            var actual = _appSettingGroupRepository.GetAll().FirstOrDefault(a => a.Group == appSettingGroup.Group);         
+
+            // ==== Assert ====
+
+            Assert.IsNotNull(actual);
+            actual.Group.Should().Be("TestGroup1");
+        }
+
+        [Test]
+        public void AddAppSettingGroup_AddParentNotExist_Exception()
+        {
+            // ==== Arrange ====
+            var appSettingGroup = new AppSettingGroup
+            {
+                Group = "TestGroup99",
+                Description = "This is part of integration testing",
+                ParentGroupId = 99,
+                ModifiedBy = "Integartion Test",
+                ModifiedDate = DateTime.UtcNow
+            };
+
+            // ==== Act ====         
+            Action action = () => _appSettingGroupRepository.Add(appSettingGroup);
+
+            // ==== Assert ====
+            action.ShouldThrowExactly<ArgumentOutOfRangeException>().Where(e => e.Message.StartsWith("Invalid Parent Group Id"));
+        }
+
+        [Test]
+        public void AddAppSettingGroup_AddParentNull_Exception()
+        {
+            // ==== Arrange ====
+            var appSettingGroup = new AppSettingGroup
+            {
+                Group = "TestGroup99",
+                Description = "This is part of integration testing",
+                ParentGroupId = null,
+                ModifiedBy = "Integartion Test",
+                ModifiedDate = DateTime.UtcNow
+            };
+
+            // ==== Act ====         
+            Action action = () => _appSettingGroupRepository.Add(appSettingGroup);
+
+            // ==== Assert ====
+            action.ShouldThrowExactly<ArgumentOutOfRangeException>().Where(e => e.Message.StartsWith("Parent Group Id can't be null"));
+        }
+
+
+        [Test]
+        public void UpdateAppSettingGroup_Update_Success()
+        {
+            // ==== Arrange ====
+            var expected = new AppSettingGroup
+            {
+                AppSettingGroupId = 7,
+                ParentGroupId = 6,
+                Group = "TestLevel3-4",
+                Description = "Updated",
+                ModifiedDate = DateTime.UtcNow,
+                ModifiedBy = "Integration Test"
+            };
+
+            // ==== Act ====
+            _appSettingGroupRepository.Update(expected);
+            _appSettingGroupRepository.SaveChanges();
+
+            var actual = _appSettingGroupRepository.GetById(expected.AppSettingGroupId);
+
+            // ==== Assert ====
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void UpdateAppSettingGroup_NotExists_Exception()
+        {
+            // ==== Arrange ====
+            var expected = new AppSettingGroup
+            {
+                AppSettingGroupId = 99,
+                ParentGroupId = 6,
+                Group = "TestLevel3-4",
+                Description = "Updated",
+                ModifiedDate = DateTime.UtcNow,
+                ModifiedBy = "Integration Test"
+            };
+
+            // ==== Act ====
+            _appSettingGroupRepository.Update(expected);
+            Action action = () => _appSettingGroupRepository.SaveChanges();
+
+            // ==== Assert ====
+            action.ShouldThrowExactly<DbUpdateConcurrencyException>();
+        }
+
+        [Test]
+        public void DeleteAppSettingGroup_Exists_Success()
+        {
+            // ==== Arrange ====
+            var tobedeleted = _appSettingGroupRepository.GetAll().FirstOrDefault(a => a.Group == "TestGroup1");
+
+            // ==== Act ====
+            _appSettingGroupRepository.Delete(tobedeleted);
+            _appSettingGroupRepository.SaveChanges();
+
+            var expected = _appSettingGroupRepository.GetAll().FirstOrDefault(a => a.Group == "TestGroup1");
+
+            // ==== Assert ====
+            expected.Should().BeNull();
+        }
+
+        [Test]
+        public void DeleteAppSettingGroup_NotExists_Exeption()
+        {
+            // ==== Arrange ====
+            var expected = new AppSettingGroup
+            {
+                AppSettingGroupId = 99,
+                ParentGroupId = 6,
+                Group = "TestLevel3-4",
+                Description = "Updated",
+                ModifiedDate = DateTime.UtcNow,
+                ModifiedBy = "Integration Test"
+            };
+
+            // ==== Act ====
+            Action action = () => _appSettingGroupRepository.Delete(expected);
+            //Action action = () => _appSettingGroupRepository.SaveChanges();
+            
+            // ==== Assert ====
+            action.ShouldThrowExactly<InvalidOperationException>().Where(e => e.Message.StartsWith("The object cannot be deleted"));
+        }
+
     }
 
     //public class GroupsParentsCaseSource : IEnumerable
@@ -89,4 +243,5 @@ namespace hms.entappsettings.repository.Repositories.Tests
 
     //    }
     //}
+
 }

@@ -18,5 +18,6 @@ namespace hms.entappsettings.repository.Repositories
         IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate);
         IQueryable<T> GetAll();
         T GetById(int id);
+        bool Exists(int id);
     }
 }

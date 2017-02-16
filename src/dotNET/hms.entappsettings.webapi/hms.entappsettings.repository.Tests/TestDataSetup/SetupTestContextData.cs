@@ -30,7 +30,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
         {
             // Set this to true once to clear the database if it's flagging as populated
             // BE REALLY SURE YOU HAVE THE RIGHT DATABASE CONNECTION STRING!!
-            bool ForceInitialClearDownofDb = false;
+            bool ForceInitialClearDownofDb = true;
             if (ForceInitialClearDownofDb)
             {
                 Console.WriteLine("#### !! Forced - Clearing database...I hope it's not production !! ");

@@ -56,5 +56,15 @@ namespace hms.entappsettings.repository.Repositories
         {
             return _dbContext.Set<T>().Find(id);
         }
+
+        /// <summary>
+        /// Checks if the enity exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Exists(int id)
+        {
+            return _dbContext.Set<T>().Find(id) != null;
+        }
     }
 }

@@ -41,10 +41,18 @@ namespace hms.entappsettings.repository.Repositories
         /// <param name="appSettingGroup"></param>
         public void Add(AppSettingGroup appSettingGroup)
         {
+            if (appSettingGroup.ParentGroupId == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(appSettingGroup),"Parent Group Id can't be null");
+            }
+            if (!Exists(appSettingGroup.ParentGroupId.Value))
+            {
+                throw new ArgumentOutOfRangeException(nameof(appSettingGroup),"Invalid Parent Group Id");
+            }
+
             _dbContext.AppSettingGroups.Add(appSettingGroup);
         }
-
-
+      
 
         #region IDisposable
 
