@@ -1,4 +1,4 @@
-﻿REM 
+REM 
 REM @ECHO OFF
 REM === Post Build Script to bring XmlDocument.xmls together
 IF "%~1"=="" GOTO noparampassed
