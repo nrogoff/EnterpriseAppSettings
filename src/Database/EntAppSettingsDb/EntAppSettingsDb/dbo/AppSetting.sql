@@ -39,3 +39,7 @@ CREATE TRIGGER [dbo].[Trigger_AppSetting_Audit]
 GO
 
 CREATE UNIQUE INDEX [UX_AppSetting_SettingKey_TenantIdGroupId_SectionId] ON [dbo].[AppSetting] ([SettingKey], [TenantId], [SettingGroupId], [SettingSectionId])
+
+GO
+
+CREATE INDEX [IX_AppSetting_SettingKey_TenantId_SettingGroupId] ON [dbo].[AppSetting] ([SettingKey], [TenantId], [SettingGroupId])

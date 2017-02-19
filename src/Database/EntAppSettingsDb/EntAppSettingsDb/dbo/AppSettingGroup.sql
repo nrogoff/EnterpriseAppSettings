@@ -22,3 +22,7 @@ CREATE TRIGGER [dbo].[Trigger_AppSettingGroup_Audit]
     END
 
 
+
+GO
+
+CREATE UNIQUE INDEX [UX_AppSettingGroup_Group_ParentGroupId] ON [dbo].[AppSettingGroup] ([Group], [ParentGroupId])

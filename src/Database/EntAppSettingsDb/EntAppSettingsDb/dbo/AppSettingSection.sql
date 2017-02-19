@@ -27,3 +27,7 @@ CREATE TRIGGER [dbo].[Trigger_AppSettingSection_Audit]
 GO
 
 CREATE INDEX [IX_AppSettingSection_Section_Ordinality] ON [dbo].[AppSettingSection] ([Ordinality], [Section])
+
+GO
+
+CREATE UNIQUE INDEX [UX_AppSettingSection_Section_ParentSectionId] ON [dbo].[AppSettingSection] ([Section], [ParentSectionId])

@@ -21,4 +21,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[FK_AppSetting_Tenant]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d21b70dc-c4d4-4abc-bf7f-5f3e2ad49cf0" ChangeDateTime="02/19/2017 10:18:39">
+    <Property Name="ElementName" Value="[dbo].[Tenant].[IX_Tenant_TenantCode]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[Tenant]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[UX_Tenant_TenantCode]" />
+  </Operation>
 </Operations>
