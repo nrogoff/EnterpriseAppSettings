@@ -36,7 +36,9 @@ namespace hms.entappsettings.repository.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Adds an entity with no error handling or model checking. 
+        /// Use Add from the repository if available for more defensive
+        /// inserts to the data layer.
         /// </summary>
         /// <param name="entity"></param>
         public void Insert(T entity)

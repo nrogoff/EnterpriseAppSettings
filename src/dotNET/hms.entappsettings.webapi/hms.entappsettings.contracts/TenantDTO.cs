@@ -19,7 +19,7 @@ namespace hms.entappsettings.contracts
         /// <summary>
         /// Unique Tenant Id
         /// </summary>
-        public int TenantId { get; set; }
+        public int? TenantId { get; set; }
 
         /// <summary>
         /// Tenant name (public display)

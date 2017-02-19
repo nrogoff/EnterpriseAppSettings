@@ -91,6 +91,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AppSettingGroupRepositoryTests.cs" />
     <Compile Include="Repositories\AppSettingRepositoryTests.cs" />
+    <Compile Include="Repositories\AppSettingSectionRepositoryTests.cs" />
+    <Compile Include="Repositories\TenantRepositoryTests.cs" />
     <Compile Include="TestDataSetup\SetupTestContextData.cs" />
   </ItemGroup>
   <ItemGroup>

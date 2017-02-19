@@ -2,25 +2,52 @@
 // All Rights Reserved.
 // 
 // Author: Nicholas Rogoff
-// Created: 2017 - 02 - 08
+// Created: 2017 - 02 - 17
 // 
 // Project: hms.entappsettings.repository
-// Filename: TenantRepository.cs
+// Filename: SectionRepository.cs
 
 using System;
+using System.Linq;
 using hms.entappsettings.context;
 using hms.entappsettings.model;
 
 namespace hms.entappsettings.repository.Repositories
 {
-    public class TenantRepository : EditableRepositoryBase<Tenant>, ITenantRepository
+    public class AppSettingSectionRepository : EditableRepositoryBase<AppSettingSection> , IAppSettingSectionRepository
     {
 
-        public TenantRepository(IEntAppSettingsDbContext dbContext) : base(dbContext)
+        public AppSettingSectionRepository(IEntAppSettingsDbContext dbContext) : base(dbContext)
         {
         }
 
+        /// <summary>
+        /// Get the App Setting Sections Parents
+        /// </summary>
+        /// <param name="appSettingSectionId"></param>
+        /// <returns></returns>
+        public IQueryable<GetParentAppSettingSectionsReturnModel> GetAppSettingSectionParents(int appSettingSectionId)
+        {
+            return _dbContext.GetParentAppSettingSections(appSettingSectionId);
+        }
 
+        /// <summary>
+        /// Add an AppSettingSection
+        /// </summary>
+        /// <param name="appSettingSection"></param>
+        public void Add(AppSettingSection appSettingSection)
+        {
+            if (appSettingSection.ParentSectionId == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(appSettingSection), "Parent Section Id can't be null");
+            }
+            if (!Exists(appSettingSection.ParentSectionId.Value))
+            {
+                throw new ArgumentOutOfRangeException(nameof(appSettingSection), "Invalid Parent Section Id");
+            }
+
+            _dbContext.AppSettingSections.Add(appSettingSection);
+        }
 
         #region IDisposable
 
@@ -29,7 +56,7 @@ namespace hms.entappsettings.repository.Repositories
         //Finalize method for the object, will call Dispose for us
         //to clean up the resources if the user has not called it
 
-        ~TenantRepository()
+        ~AppSettingSectionRepository()
         {
             //Indicate that the GC called Dispose, not the user
             Dispose(false);
@@ -67,16 +94,8 @@ namespace hms.entappsettings.repository.Repositories
             }
         }
 
+
         #endregion
 
-        public void Add(Tenant tenant)
-        {
-            _dbContext.Tenants.Add(tenant);
-        }
-    }
-
-    public interface ITenantRepository : IEditableRepository<Tenant>, IDisposable
-    {
-        void Add(Tenant tenant);
     }
 }

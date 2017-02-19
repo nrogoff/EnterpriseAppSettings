@@ -10,7 +10,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using hms.entappsettings.context;
 using hms.entappsettings.contracts;
 using hms.entappsettings.model;
 using hms.entappsettings.repository.Repositories;
@@ -18,7 +17,7 @@ using hms.entappsettings.repository.Repositories;
 namespace hms.entappsettings.webapi.Controllers
 {
     /// <summary>
-    /// Public Api for gettinge App Setting Groups
+    /// Public Api for getting and managing App Setting Groups
     /// </summary>
     [RoutePrefix("api/AppSettingGroups")]
     public class AppSettingGroupsController : ApiController
@@ -106,7 +105,7 @@ namespace hms.entappsettings.webapi.Controllers
         /// <param name="id"></param>
         /// <param name="appSettingGroupDTO"></param>
         /// <returns></returns>
-        /// <response code="200">OK</response>
+        /// <response code="204">Success, No Content</response>
         /// <response code="400">Bad Request: Id does not match the body</response>
         /// <response code="404">Not Found: AppSettingGroup Id not found</response>
         [Route("{id}")]
@@ -118,32 +117,25 @@ namespace hms.entappsettings.webapi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             if (id != appSettingGroupDTO.AppSettingGroupId)
             {
                 return BadRequest();
+            }
+            if (!_appSettingGroupRepository.Exists(id))
+            {
+                return NotFound();
             }
 
             try
             {
                 _appSettingGroupRepository.Update(_mapper.Map<AppSettingGroup>(appSettingGroupDTO));
                 _appSettingGroupRepository.SaveChanges();
-
-
-                //db.Entry(appSettingGroup).State = EntityState.Modified;
-
-                //db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AppSettingGroupExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                throw;
+                
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -153,7 +145,9 @@ namespace hms.entappsettings.webapi.Controllers
         /// Add an AppSettingGroup
         /// </summary>
         /// <param name="appSettingGroupDTO"></param>
-        /// <returns></returns>
+        /// <returns>Header contains uri to get created resource. see loctaion header value.</returns>
+        /// <response code="201">Success, Created</response>
+        /// <response code="400">Bad Request: Passed model invalid</response>
         [HttpPost]
         [ResponseType(typeof(AppSettingGroupDTO))]
         public IHttpActionResult PostAppSettingGroup(AppSettingGroupDTO appSettingGroupDTO)
@@ -173,10 +167,12 @@ namespace hms.entappsettings.webapi.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Delete an App Setting Group
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [HttpDelete]
         [Route("{id}")]
         [ResponseType(typeof(AppSettingGroupDTO))]
@@ -192,10 +188,10 @@ namespace hms.entappsettings.webapi.Controllers
             return Ok(_mapper.Map<AppSettingGroupDTO>(appSettingGroup));
         }
 
-        private bool AppSettingGroupExists(int id)
-        {
-            return _appSettingGroupRepository.GetById(id) != null;
-        }
+        //private bool AppSettingGroupExists(int id)
+        //{
+        //    return _appSettingGroupRepository.GetById(id) != null;
+        //}
 
         protected override void Dispose(bool disposing)
         {

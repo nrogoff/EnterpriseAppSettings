@@ -499,7 +499,7 @@
         </member>
         <member name="T:hms.entappsettings.webapi.Controllers.AppSettingGroupsController">
             <summary>
-            Public Api for gettinge App Setting Groups
+            Public Api for getting and managing App Setting Groups
             </summary>
         </member>
         <member name="M:hms.entappsettings.webapi.Controllers.AppSettingGroupsController.#ctor(hms.entappsettings.repository.Repositories.IAppSettingGroupRepository,AutoMapper.IMapper)">
@@ -538,7 +538,7 @@
             <param name="id"></param>
             <param name="appSettingGroupDTO"></param>
             <returns></returns>
-            <response code="200">OK</response>
+            <response code="204">Success, No Content</response>
             <response code="400">Bad Request: Id does not match the body</response>
             <response code="404">Not Found: AppSettingGroup Id not found</response>
         </member>
@@ -547,14 +547,18 @@
             Add an AppSettingGroup
             </summary>
             <param name="appSettingGroupDTO"></param>
-            <returns></returns>
+            <returns>Header contains uri to get created resource. see loctaion header value.</returns>
+            <response code="201">Success, Created</response>
+            <response code="400">Bad Request: Passed model invalid</response>
         </member>
         <member name="M:hms.entappsettings.webapi.Controllers.AppSettingGroupsController.DeleteAppSettingGroup(System.Int32)">
             <summary>
-            
+            Delete an App Setting Group
             </summary>
             <param name="id"></param>
             <returns></returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found</response>
         </member>
         <member name="T:hms.entappsettings.webapi.Controllers.AppSettingsController">
             <summary>
@@ -568,6 +572,116 @@
             <param name="tenantId">The Id of the Tenant whose settings to return. This should be hard configured in the internal application config.</param>
             <param name="appSettingGroupId">The AppSetting Group Id (i.e. the type of client). This should be hard configured in the internal application config.</param>
             <returns></returns>
+        </member>
+        <member name="T:hms.entappsettings.webapi.Controllers.AppSettingSectionsController">
+            <summary>
+            Public API for getting and managing Sections
+            </summary>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.#ctor(hms.entappsettings.repository.Repositories.IAppSettingSectionRepository,AutoMapper.IMapper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="appSectionRepository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.GetAppSettingSection">
+            <summary>
+            Returns all Tenants
+            </summary>
+            <returns></returns>
+            [Authorize]
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.GetAppSettingSection(System.Int32)">
+            <summary>
+            Get App Setting Section details by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.PutAppSettingSection(System.Int32,hms.entappsettings.contracts.AppSettingSectionDTO)">
+            <summary>
+            Update an existing App Setting Section
+            </summary>
+            <param name="id"></param>
+            <param name="appSettingSectionDTO"></param>
+            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">Bad Request: Id does not match the body</response>
+            <response code="404">Not Found: AppSettingSection Id not found</response>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.PostAppSettingSection(hms.entappsettings.contracts.AppSettingSectionDTO)">
+            <summary>
+            Add an App Setting Section
+            </summary>
+            <param name="appSettingSectionDTO">The new appSettingSection DTO</param>
+            <returns>The AppSettingSectionDTO as given. The header contains uri to get created resource (and it's Id). see loctaion header value.</returns>
+            <response code="201">Success, Created</response>
+            <response code="400">Bad Request: Passed model invalid</response>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.DeleteAppSettingSection(System.Int32)">
+            <summary>
+            Delete a AppSettingSection
+            </summary>
+            <param name="id">The App Setting Section Id</param>
+            <returns>AppSettingSectionDTO of deleted item</returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found</response>
+        </member>
+        <member name="T:hms.entappsettings.webapi.Controllers.TenantsController">
+            <summary>
+            Public API for getting and managing Tenants
+            </summary>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.#ctor(hms.entappsettings.repository.Repositories.ITenantRepository,AutoMapper.IMapper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="tenantRepository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.GetTenants">
+            <summary>
+            Returns all Tenants
+            </summary>
+            <returns></returns>
+            [Authorize]
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.GetTenant(System.Int32)">
+            <summary>
+            Get tenant details by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.PutTenant(System.Int32,hms.entappsettings.contracts.TenantDTO)">
+            <summary>
+            Update an existing Tenant
+            </summary>
+            <param name="id"></param>
+            <param name="tenantDTO"></param>
+            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">Bad Request: Id does not match the body</response>
+            <response code="404">Not Found: Tenant Id not found</response>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.PostTenant(hms.entappsettings.contracts.TenantDTO)">
+            <summary>
+            Add an Tenant
+            </summary>
+            <param name="tenantDTO">The new tenant DTO</param>
+            <returns>The Tenant DTO as given. The header contains uri to get created resource (and it's Id). see loctaion header value.</returns>
+            <response code="201">Success, Created</response>
+            <response code="400">Bad Request: Passed model invalid</response>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.DeleteTenant(System.Int32)">
+            <summary>
+            Delete a Tenant
+            </summary>
+            <param name="id">The TenantId</param>
+            <returns>Tenant DTO of deleted item</returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found</response>
         </member>
         <member name="T:hms.entappsettings.webapi.Utils.MultiXmlDocumentationProvider">
             <summary>

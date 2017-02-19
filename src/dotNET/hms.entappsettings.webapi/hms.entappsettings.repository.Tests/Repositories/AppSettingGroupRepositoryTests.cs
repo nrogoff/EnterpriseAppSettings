@@ -88,7 +88,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 Group = "TestGroup1",
                 Description = "This is part of integration testing",
                 ParentGroupId = 1,
-                ModifiedBy = "Integartion Test",
+                ModifiedBy = "Integration Test",
                 ModifiedDate = DateTime.UtcNow
             };
 

@@ -45,6 +45,8 @@ namespace hms.entappsettings.webapi.Controllers
             return Ok(_mapper.Map<IEnumerable<AppSettingDTO>>(appSettings));
         }
 
+
+
         #endregion
     }
 }

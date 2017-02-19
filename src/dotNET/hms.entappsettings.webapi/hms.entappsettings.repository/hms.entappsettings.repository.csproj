@@ -60,11 +60,13 @@
     <Compile Include="Repositories\AppSettingGroupRepository.cs" />
     <Compile Include="Repositories\AppSettingRepository.cs" />
     <Compile Include="Repositories\EditableRepositoryBase.cs" />
+    <Compile Include="Repositories\IAppSectionRepository.cs" />
     <Compile Include="Repositories\IAppSettingGroupRepository.cs" />
     <Compile Include="Repositories\IAppSettingRepository.cs" />
     <Compile Include="Repositories\ReadOnlyRepositoryBase.cs" />
     <Compile Include="Repositories\IEditableRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\AppSettingSectionRepository.cs" />
     <Compile Include="Repositories\TenantRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

@@ -26,7 +26,7 @@ namespace hms.entappsettings.repository.Repositories
         }
 
         /// <summary>
-        /// Get the 
+        /// Get the App Setting Group Parents
         /// </summary>
         /// <param name="appSettingGroupId"></param>
         /// <returns></returns>
