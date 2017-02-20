@@ -63,6 +63,7 @@
     <Compile Include="Repositories\IAppSectionRepository.cs" />
     <Compile Include="Repositories\IAppSettingGroupRepository.cs" />
     <Compile Include="Repositories\IAppSettingRepository.cs" />
+    <Compile Include="Repositories\ITenantRepository.cs" />
     <Compile Include="Repositories\ReadOnlyRepositoryBase.cs" />
     <Compile Include="Repositories\IEditableRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />

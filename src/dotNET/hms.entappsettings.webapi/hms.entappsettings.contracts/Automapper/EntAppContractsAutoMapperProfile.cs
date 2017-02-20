@@ -26,6 +26,11 @@ namespace hms.entappsettings.contracts.Automapper
         {
             CreateMap<AppSetting, AppSettingDTO>()
                 .ForMember(x => x.GroupPath, opt => opt.MapFrom(x => x.AppSettingGroup.GroupPath));
+            CreateMap<AppSettingDTO, AppSetting>()
+                .ForMember(x => x.AppSettingGroup, opt => opt.Ignore())
+                .ForMember(x => x.AppSettingSection, opt => opt.Ignore())
+                .ForMember(x => x.Tenant, opt => opt.Ignore())
+                .ForMember(x => x.AppSettingType, opt => opt.Ignore());
             CreateMap<AppSetting, AppSettingWithOverrideDTO>()
                 .ForMember(x => x.Overridden, opt => opt.Ignore())
                 .ForMember(x => x.GroupPath, opt => opt.MapFrom(x => x.AppSettingGroup.GroupPath));

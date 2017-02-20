@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
@@ -15,7 +14,7 @@ using hms.entappsettings.repository.Repositories;
 namespace hms.entappsettings.webapi.Controllers
 {
     /// <summary>
-    /// Public Api for getting Enterprise App Settings
+    /// Api for getting Enterprise App Settings
     /// </summary>
     [RoutePrefix("api/AppSettings")]
     public class AppSettingsController : ApiController
@@ -24,6 +23,12 @@ namespace hms.entappsettings.webapi.Controllers
         private readonly IAppSettingHandler _appSettingHandler;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="appSettingRepository"></param>
+        /// <param name="appSettingHandler"></param>
+        /// <param name="mapper"></param>
         public AppSettingsController(IAppSettingRepository appSettingRepository,IAppSettingHandler appSettingHandler, IMapper mapper)
         {
             _appSettingRepository = appSettingRepository;
@@ -34,11 +39,33 @@ namespace hms.entappsettings.webapi.Controllers
         #region Public Endpoints
 
         /// <summary>
+        /// RESTRICTED: Gets all App Settings
+        /// </summary>
+        /// <param name="includeInternals">Include internal falgged settings. Default is false</param>
+        /// <param name="skip">default = 0</param>
+        /// <param name="take">default = 20</param>
+        /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<AppSettingDTO>))]
+        public IHttpActionResult GetAllAppSettings(bool includeInternals = false, int skip = 0, int take = 20)
+        {
+            var appSettings = _appSettingRepository.GetAllAppSettings().Skip(skip).Take(take);
+            if (!appSettings.Any())
+                return NotFound();
+
+            return Ok(_mapper.Map<IEnumerable<AppSettingDTO>>(appSettings));
+        }
+
+        /// <summary>
         /// Returns RESULTANT App Settings for a given Tenant and AppSettingsGroup. NO internal settings published.
         /// </summary>
         /// <param name="tenantId">The Id of the Tenant whose settings to return. This should be hard configured in the internal application config.</param>
         /// <param name="appSettingGroupId">The AppSetting Group Id (i.e. the type of client). This should be hard configured in the internal application config.</param>
         /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Not Found</response>
         [Route("{tenantId:int}/{appSettingGroupId}")]
         [ResponseType(typeof(List<AppSettingDTO>))]
         public IHttpActionResult GetAppSettings([FromUri]int tenantId, [FromUri]int appSettingGroupId)
@@ -52,12 +79,13 @@ namespace hms.entappsettings.webapi.Controllers
 
 
         /// <summary>
-        /// RESTRICTED. Returns App Settings for a given Tenant and AppSettingsGroup with an Overridden flag.
+        /// RESTRICTED: Returns App Settings for a given Tenant and App Setting Group with an Overridden flag.
         /// </summary>
         /// <param name="tenantId">The Id of the Tenant whose settings to return. This should be hard configured in the internal application config.</param>
         /// <param name="appSettingGroupId">The AppSetting Group Id (i.e. the type of client). This should be hard configured in the internal application config.</param>
         /// <param name="includeInternals">Include internal settings. Default is false</param>
         /// <returns></returns>
+        /// <response code="200">OK</response>
         [Route("WithOverrideFlag/{tenantId:int}/{appSettingGroupId}")]
         [ResponseType(typeof(List<AppSettingWithOverrideDTO>))]
         public IHttpActionResult GetAppSettingsWithOverride([FromUri]int tenantId, [FromUri]int appSettingGroupId, bool includeInternals = false)
@@ -69,12 +97,12 @@ namespace hms.entappsettings.webapi.Controllers
 
 
         /// <summary>
-        /// Update an existing Tenant
+        /// RESTRICTED: Update an existing Tenant
         /// </summary>
         /// <param name="appSettingId"></param>
         /// <param name="appSettingDTO"></param>
         /// <returns></returns>
-        /// <response code="200">OK</response>
+        /// <response code="204">OK. No content</response>
         /// <response code="400">Bad Request: Id does not match the body</response>
         /// <response code="404">Not Found: Tenant Id not found</response>
         [Route("{appSettingId}")]
@@ -87,7 +115,7 @@ namespace hms.entappsettings.webapi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (appSettingId != appSettingDTO.TenantId)
+            if (appSettingDTO.AppSettingId != null && appSettingId != appSettingDTO.AppSettingId.Value)
             {
                 return BadRequest();
             }
@@ -111,10 +139,13 @@ namespace hms.entappsettings.webapi.Controllers
 
 
         /// <summary>
-        /// Adds an App Setting
+        /// RESTRICTED: Adds an App Setting
         /// </summary>
         /// <param name="appSettingDTO">A new App Setting</param>
         /// <returns></returns>
+        /// <response code="201">Success, Created. See location header value for URI to newly created resource.</response>
+        /// <response code="400">Bad Request: Passed model invalid</response>
+        /// <response code="409">Conflict: Could not save due to a conflict</response>
         [HttpPost]
         [ResponseType(typeof(AppSettingDTO))]
         public IHttpActionResult PostAppSetting(AppSettingDTO appSettingDTO)
@@ -128,13 +159,20 @@ namespace hms.entappsettings.webapi.Controllers
 
             _appSettingRepository.Add(appSetting);
 
-            _appSettingRepository.SaveChanges();
+            try
+            {
+                _appSettingRepository.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return Conflict();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = appSetting.TenantId }, appSettingDTO);
         }
 
         /// <summary>
-        /// Delete a Tenant
+        /// RESTRICTED: Delete a Tenant
         /// </summary>
         /// <param name="appSettingId">The App Setting Id</param>
         /// <returns>Tenant DTO of deleted item</returns>

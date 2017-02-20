@@ -8,6 +8,7 @@
 // Filename: TenantRepository.cs
 
 using System;
+using System.Data.Entity;
 using hms.entappsettings.context;
 using hms.entappsettings.model;
 
@@ -20,7 +21,31 @@ namespace hms.entappsettings.repository.Repositories
         {
         }
 
+        public void Add(Tenant tenant)
+        {
+            _dbContext.Tenants.Add(tenant);
+        }
 
+        public override void Update(Tenant tenant)
+        {
+
+            var entry = _dbContext.Entry(tenant);
+            if (entry.State == EntityState.Detached)
+            {
+                //First query the context
+                var existingTenant = _dbContext.Tenants.Find(tenant.TenantId);
+                if (existingTenant != null)
+                {
+                    //Entity already in context
+                    var attachedEntry = _dbContext.Entry(existingTenant);
+                    attachedEntry.CurrentValues.SetValues(tenant);
+                }
+            }
+            else
+            {
+                base.Update(tenant);               
+            }
+        }
 
         #region IDisposable
 
@@ -69,14 +94,6 @@ namespace hms.entappsettings.repository.Repositories
 
         #endregion
 
-        public void Add(Tenant tenant)
-        {
-            _dbContext.Tenants.Add(tenant);
-        }
-    }
 
-    public interface ITenantRepository : IEditableRepository<Tenant>, IDisposable
-    {
-        void Add(Tenant tenant);
     }
 }

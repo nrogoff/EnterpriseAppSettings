@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using hms.entappsettings.context;
 using hms.entappsettings.model;
@@ -52,7 +53,26 @@ namespace hms.entappsettings.repository.Repositories
 
             _dbContext.AppSettingGroups.Add(appSettingGroup);
         }
-      
+
+        public override void Update(AppSettingGroup appSettingGroup)
+        {
+            var entry = _dbContext.Entry(appSettingGroup);
+            if (entry.State == EntityState.Detached)
+            {
+                //First query the context
+                var existingAppSettingGroup = _dbContext.AppSettingGroups.Find(appSettingGroup.AppSettingGroupId);
+                if (existingAppSettingGroup != null)
+                {
+                    //Entity already in context
+                    var attachedEntry = _dbContext.Entry(existingAppSettingGroup);
+                    attachedEntry.CurrentValues.SetValues(appSettingGroup);
+                }
+            }
+            else
+            {
+                base.Update(appSettingGroup);
+            }
+        }
 
         #region IDisposable
 

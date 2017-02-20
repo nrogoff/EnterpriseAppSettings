@@ -117,6 +117,29 @@ namespace hms.entappsettings.repository.Repositories
             _dbContext.AppSettings.Add(appSetting);
         }
 
+        /// <summary>
+        /// Update an existing App Setting
+        /// </summary>
+        /// <param name="appSetting"></param>
+        public override void Update(AppSetting appSetting)
+        {
+            var entry = _dbContext.Entry(appSetting);
+            if (entry.State == EntityState.Detached)
+            {
+                //First query the context
+                var existingAppSetting = _dbContext.AppSettings.Find(appSetting.AppSettingId);
+                if (existingAppSetting != null)
+                {
+                    //Entity already in context
+                    var attachedEntry = _dbContext.Entry(existingAppSetting);
+                    attachedEntry.CurrentValues.SetValues(appSetting);
+                }
+            }
+            else
+            {
+                base.Update(appSetting);
+            }
+        }
 
         #region private methods
 

@@ -108,7 +108,7 @@ namespace hms.entappsettings.repository.Repositories.Tests
                 TenantId = 4,
                 TenantName = "TestIntegrationTenant",
                 TenantCode = "TESTINT1",
-                TenantDescription = "This is a tenant created during integartion tests. Updated.",
+                TenantDescription = "This is a tenant created during integration tests. Updated 1.",
                 ModifiedDate = DateTime.UtcNow,
                 ModifiedBy = "Integration Test"
             };
@@ -121,8 +121,46 @@ namespace hms.entappsettings.repository.Repositories.Tests
             var actual = _tenantRepository.GetById(expected.TenantId);
 
             // ==== Assert ====
+            actual.ShouldBeEquivalentTo(expected);
+        }
 
-            Assert.AreEqual(expected, actual);
+        [Test, Order(31)]
+        public void UpdateTenant_UpdateDetached_Success()
+        {
+            // ==== Arrange ====
+
+            var expected = new Tenant
+            {
+                TenantId = 4,
+                TenantName = "TestIntegrationTenant",
+                TenantCode = "TESTINT1",
+                TenantDescription = "This is a tenant created during integration tests. Updated 2.",
+                ModifiedDate = DateTime.UtcNow,
+                ModifiedBy = "Integration Test"
+            };
+            _tenantRepository.Update(expected);
+            _tenantRepository.SaveChanges();
+
+            // ==== Act ====
+
+            //2nd update same context
+            var expected2 = new Tenant
+            {
+                TenantId = 4,
+                TenantName = "TestIntegrationTenant",
+                TenantCode = "TESTINT1",
+                TenantDescription = "This is a tenant created during integration tests. Updated 3.",
+                ModifiedDate = DateTime.UtcNow,
+                ModifiedBy = "Integration Test"
+            };
+            _tenantRepository.Update(expected2);
+            _tenantRepository.SaveChanges();
+
+            var actual = _tenantRepository.GetById(expected2.TenantId);
+
+            // ==== Assert ====
+
+            actual.ShouldBeEquivalentTo(expected2);
         }
 
         [Test, Order(40)]

@@ -8,6 +8,7 @@
 // Filename: SectionRepository.cs
 
 using System;
+using System.Data.Entity;
 using System.Linq;
 using hms.entappsettings.context;
 using hms.entappsettings.model;
@@ -47,6 +48,26 @@ namespace hms.entappsettings.repository.Repositories
             }
 
             _dbContext.AppSettingSections.Add(appSettingSection);
+        }
+
+        public override void Update(AppSettingSection appSettingSection)
+        {
+            var entry = _dbContext.Entry(appSettingSection);
+            if (entry.State == EntityState.Detached)
+            {
+                //First query the context
+                var existingAppSettingSection = _dbContext.AppSettingSections.Find(appSettingSection.AppSettingSectionId);
+                if (existingAppSettingSection != null)
+                {
+                    //Entity already in context
+                    var attachedEntry = _dbContext.Entry(existingAppSettingSection);
+                    attachedEntry.CurrentValues.SetValues(appSettingSection);
+                }
+            }
+            else
+            {
+                base.Update(appSettingSection);
+            }
         }
 
         #region IDisposable

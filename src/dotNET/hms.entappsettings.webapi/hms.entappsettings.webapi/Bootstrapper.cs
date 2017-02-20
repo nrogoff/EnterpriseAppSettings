@@ -10,6 +10,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using AutoMapper;
+using hms.entappsettings.bll;
 using hms.entappsettings.context;
 using hms.entappsettings.repository.Repositories;
 using Owin;
@@ -89,6 +90,8 @@ namespace hms.entappsettings.webapi
 
             //Register other general types needed here
 
+            //Register BLL
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(AppSettingsHandler))).AsImplementedInterfaces();
 
             #endregion
 

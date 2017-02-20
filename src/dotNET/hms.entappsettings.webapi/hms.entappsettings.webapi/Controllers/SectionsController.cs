@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
@@ -15,7 +14,7 @@ using hms.entappsettings.model;
 namespace hms.entappsettings.webapi.Controllers
 {
     /// <summary>
-    /// Public API for getting and managing Sections
+    /// RESTRICTED API for getting and managing Enterprise App Setting Sections
     /// </summary>
     [RoutePrefix("api/AppSettingSections")]
     public class AppSettingSectionsController : ApiController
@@ -35,34 +34,38 @@ namespace hms.entappsettings.webapi.Controllers
         }
 
         /// <summary>
-        /// Returns all Tenants
+        /// Returns all Sections
         /// </summary>
         /// <returns></returns>
         /// [Authorize]
-        public IQueryable<AppSettingSectionDTO> GetAppSettingSection()
+        /// <response code="200">OK</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<AppSettingSectionDTO>))]
+        public IHttpActionResult GetAppSettingSection()
         {
             try
             {
-                return _appSectionRepository.GetAll().ProjectTo<AppSettingSectionDTO>(_mapper.ConfigurationProvider);
+                return Ok(_appSectionRepository.GetAll().ProjectTo<AppSettingSectionDTO>(_mapper.ConfigurationProvider));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return  InternalServerError(e);
             }
         }
 
         /// <summary>
         /// Get App Setting Section details by id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="appSettingSectionId">App Setting Section Id</param>
         /// <returns></returns>
+        /// <response code="200">OK</response>
         [HttpGet]
-        [Route("{id}")]
+        [Route("{appSettingSectionId}")]
         [ResponseType(typeof(AppSettingSectionDTO))]
-        public IHttpActionResult GetAppSettingSection([FromUri] int id)
+        public IHttpActionResult GetAppSettingSection([FromUri] int appSettingSectionId)
         {
-            AppSettingSection appSettingSection = _appSectionRepository.GetById(id);
+            AppSettingSection appSettingSection = _appSectionRepository.GetById(appSettingSectionId);
             if (appSettingSection == null)
             {
                 return NotFound();
@@ -75,27 +78,27 @@ namespace hms.entappsettings.webapi.Controllers
         /// <summary>
         /// Update an existing App Setting Section
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="appSettingSectionDTO"></param>
+        /// <param name="appSettingSectionId">App Setting Section Id</param>
+        /// <param name="appSettingSectionDTO">App Setting Section DTO</param>
         /// <returns></returns>
-        /// <response code="200">OK</response>
+        /// <response code="204">OK. No content</response>
         /// <response code="400">Bad Request: Id does not match the body</response>
         /// <response code="404">Not Found: AppSettingSection Id not found</response>
-        [Route("{id}")]
+        [Route("{appSettingSectionId}")]
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAppSettingSection(int id, AppSettingSectionDTO appSettingSectionDTO)
+        public IHttpActionResult PutAppSettingSection(int appSettingSectionId, AppSettingSectionDTO appSettingSectionDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != appSettingSectionDTO.AppSettingSectionId)
+            if (appSettingSectionId != appSettingSectionDTO.AppSettingSectionId)
             {
                 return BadRequest();
             }
-            if (!_appSectionRepository.Exists(id))
+            if (!_appSectionRepository.Exists(appSettingSectionId))
             {
                 return NotFound();
             }
@@ -120,7 +123,7 @@ namespace hms.entappsettings.webapi.Controllers
         /// </summary>
         /// <param name="appSettingSectionDTO">The new appSettingSection DTO</param>
         /// <returns>The AppSettingSectionDTO as given. The header contains uri to get created resource (and it's Id). see loctaion header value.</returns>
-        /// <response code="201">Success, Created</response>
+        /// <response code="201">Success, Created. See location header value for URI to newly created resource.</response>
         /// <response code="400">Bad Request: Passed model invalid</response>
         [HttpPost]
         [ResponseType(typeof(AppSettingSectionDTO))]
@@ -135,7 +138,14 @@ namespace hms.entappsettings.webapi.Controllers
 
             _appSectionRepository.Add(appSettingSection);
 
-            _appSectionRepository.SaveChanges();
+            try
+            {
+                _appSectionRepository.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return Conflict();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = appSettingSection.AppSettingSectionId }, appSettingSectionDTO);
         }
@@ -143,16 +153,16 @@ namespace hms.entappsettings.webapi.Controllers
         /// <summary>
         /// Delete a AppSettingSection
         /// </summary>
-        /// <param name="id">The App Setting Section Id</param>
+        /// <param name="appSettingSectionId">The App Setting Section Id</param>
         /// <returns>AppSettingSectionDTO of deleted item</returns>
         /// <response code="200">OK</response>
         /// <response code="404">Not Found</response>
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{appSettingSectionId}")]
         [ResponseType(typeof(AppSettingSectionDTO))]
-        public IHttpActionResult DeleteAppSettingSection(int id)
+        public IHttpActionResult DeleteAppSettingSection(int appSettingSectionId)
         {
-            var appSettingSection = _appSectionRepository.GetById(id);
+            var appSettingSection = _appSectionRepository.GetById(appSettingSectionId);
             if (appSettingSection == null)
             {
                 return NotFound();

@@ -17,7 +17,7 @@ using hms.entappsettings.repository.Repositories;
 namespace hms.entappsettings.webapi.Controllers
 {
     /// <summary>
-    /// Public Api for getting and managing App Setting Groups
+    /// RESTRICTED Api for getting and managing App Setting Groups
     /// </summary>
     [RoutePrefix("api/AppSettingGroups")]
     public class AppSettingGroupsController : ApiController
@@ -40,8 +40,11 @@ namespace hms.entappsettings.webapi.Controllers
         /// Returns all the App Setting Groups
         /// </summary>
         /// <returns></returns>
+        /// <response code="200">OK</response>
         //[Authorize]
-        public IQueryable<AppSettingGroupDTO> GetAppSettingGroups()
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<AppSettingGroupDTO>))]
+        public IEnumerable<AppSettingGroupDTO> GetAppSettingGroups()
         {
             try
             {
@@ -57,14 +60,15 @@ namespace hms.entappsettings.webapi.Controllers
         /// <summary>
         /// Returns the App Setting Groups details for a single group Id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="appSettingGroupId"></param>
         /// <returns></returns>
+        /// <response code="200">OK</response>
         [HttpGet]
-        [Route("{id}")]
+        [Route("{appSettingGroupId}")]
         [ResponseType(typeof(AppSettingGroupDTO))]
-        public IHttpActionResult GetAppSettingGroup([FromUri]int id)
+        public IHttpActionResult GetAppSettingGroup([FromUri]int appSettingGroupId)
         {
-            AppSettingGroup appSettingGroup = _appSettingGroupRepository.GetById(id);
+            AppSettingGroup appSettingGroup = _appSettingGroupRepository.GetById(appSettingGroupId);
             if (appSettingGroup == null)
             {
                 return NotFound();
@@ -100,7 +104,7 @@ namespace hms.entappsettings.webapi.Controllers
         }
 
         /// <summary>
-        /// Update an existing AppSettingGroup
+        /// RESTRICTED: Update an existing App Setting Group
         /// </summary>
         /// <param name="id"></param>
         /// <param name="appSettingGroupDTO"></param>
@@ -142,12 +146,13 @@ namespace hms.entappsettings.webapi.Controllers
         }
 
         /// <summary>
-        /// Add an AppSettingGroup
+        /// RESTRICTED: Add an App Setting Group
         /// </summary>
         /// <param name="appSettingGroupDTO"></param>
         /// <returns>Header contains uri to get created resource. see loctaion header value.</returns>
-        /// <response code="201">Success, Created</response>
+        /// <response code="201">Success, Created. See location header value for URI to newly created resource.</response>
         /// <response code="400">Bad Request: Passed model invalid</response>
+        /// <response code="409">Conflict: Could not save due to a conflict</response>
         [HttpPost]
         [ResponseType(typeof(AppSettingGroupDTO))]
         public IHttpActionResult PostAppSettingGroup(AppSettingGroupDTO appSettingGroupDTO)
@@ -161,24 +166,31 @@ namespace hms.entappsettings.webapi.Controllers
 
             _appSettingGroupRepository.Add(appSettingGroup);
 
-            _appSettingGroupRepository.SaveChanges();
+            try
+            {
+                _appSettingGroupRepository.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return Conflict();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = appSettingGroup.AppSettingGroupId }, appSettingGroupDTO);
         }
 
         /// <summary>
-        /// Delete an App Setting Group
+        /// RESTRICTED: Delete an App Setting Group
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="appSettingGroupId"></param>
         /// <returns></returns>
         /// <response code="200">OK</response>
         /// <response code="404">Not Found</response>
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{appSettingGroupId}")]
         [ResponseType(typeof(AppSettingGroupDTO))]
-        public IHttpActionResult DeleteAppSettingGroup(int id)
+        public IHttpActionResult DeleteAppSettingGroup(int appSettingGroupId)
         {
-            var appSettingGroup = _appSettingGroupRepository.GetById(id);
+            var appSettingGroup = _appSettingGroupRepository.GetById(appSettingGroupId);
             if (appSettingGroup == null)
             {
                 return NotFound();
@@ -188,10 +200,6 @@ namespace hms.entappsettings.webapi.Controllers
             return Ok(_mapper.Map<AppSettingGroupDTO>(appSettingGroup));
         }
 
-        //private bool AppSettingGroupExists(int id)
-        //{
-        //    return _appSettingGroupRepository.GetById(id) != null;
-        //}
 
         protected override void Dispose(bool disposing)
         {

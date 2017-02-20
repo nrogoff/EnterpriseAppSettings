@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
@@ -15,7 +13,7 @@ using hms.entappsettings.repository.Repositories;
 namespace hms.entappsettings.webapi.Controllers
 {
     /// <summary>
-    /// Public API for getting and managing Tenants
+    /// RESTRICTED API for getting and managing Tenants
     /// </summary>
     [RoutePrefix("api/Tenants")]
     public class TenantsController : ApiController
@@ -39,16 +37,15 @@ namespace hms.entappsettings.webapi.Controllers
         /// </summary>
         /// <returns></returns>
         /// [Authorize]
-        public IQueryable<TenantDTO> GetTenants()
+        public IHttpActionResult GetTenants()
         {
             try
             {
-                return _tenantRepository.GetAll().ProjectTo<TenantDTO>(_mapper.ConfigurationProvider);
+                return Ok(_tenantRepository.GetAll().ProjectTo<TenantDTO>(_mapper.ConfigurationProvider));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return InternalServerError(e);
             }
         }
 
@@ -78,7 +75,7 @@ namespace hms.entappsettings.webapi.Controllers
         /// <param name="tenantId"></param>
         /// <param name="tenantDTO"></param>
         /// <returns></returns>
-        /// <response code="200">OK</response>
+        /// <response code="204">OK. No content</response>
         /// <response code="400">Bad Request: Id does not match the body</response>
         /// <response code="404">Not Found: Tenant Id not found</response>
         [Route("{tenantId}")]
@@ -105,9 +102,9 @@ namespace hms.entappsettings.webapi.Controllers
                 _tenantRepository.SaveChanges();
 
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                throw;
+                return InternalServerError(ex);
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -119,9 +116,10 @@ namespace hms.entappsettings.webapi.Controllers
         /// Add an Tenant
         /// </summary>
         /// <param name="tenantDTO">The new tenant DTO</param>
-        /// <returns>The Tenant DTO as given. The header contains uri to get created resource (and it's Id). see loctaion header value.</returns>
-        /// <response code="201">Success, Created</response>
+        /// <returns>The Tenant DTO as given. See location header value for URI to newly created resource.</returns>
+        /// <response code="201">Success, Created. See location header value for URI to newly created resource.</response>
         /// <response code="400">Bad Request: Passed model invalid</response>
+        /// <response code="409">Conflict: Could not save due to a conflict</response>
         [HttpPost]
         [ResponseType(typeof(TenantDTO))]
         public IHttpActionResult PostTenant(TenantDTO tenantDTO)
@@ -135,7 +133,14 @@ namespace hms.entappsettings.webapi.Controllers
 
             _tenantRepository.Add(tenant);
 
-            _tenantRepository.SaveChanges();
+            try
+            {
+                _tenantRepository.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return Conflict();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = tenant.TenantId }, tenantDTO);
         }

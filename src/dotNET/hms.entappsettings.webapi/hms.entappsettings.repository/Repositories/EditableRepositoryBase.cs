@@ -46,7 +46,11 @@ namespace hms.entappsettings.repository.Repositories
             _dbContext.Set<T>().Add(entity);
         }
 
-        public void Update(T entity)
+        /// <summary>
+        /// Only really useful for entities fetched from the database
+        /// </summary>
+        /// <param name="entity"></param>
+        public virtual void Update(T entity)
         {
             var entry = _dbContext.Entry(entity);
             if (entry.State == EntityState.Detached)
