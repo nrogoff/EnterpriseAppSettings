@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.webapi.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.repository.Tests", "hms.entappsettings.repository.Tests\hms.entappsettings.repository.Tests.csproj", "{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.bll.Tests", "hms.entappsettings.bll.Tests\hms.entappsettings.bll.Tests.csproj", "{232DB875-A9DB-4485-9FB6-9C528538E4A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hms.entappsettings.Tests.common", "hms.entappsettings.Tests.common\hms.entappsettings.Tests.common.csproj", "{77BE8C7B-7576-43F9-AA08-080183EE5BDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,14 @@ Global
 		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B786310E-16C6-4C91-A4BB-3BCBC52C78E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{232DB875-A9DB-4485-9FB6-9C528538E4A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232DB875-A9DB-4485-9FB6-9C528538E4A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232DB875-A9DB-4485-9FB6-9C528538E4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232DB875-A9DB-4485-9FB6-9C528538E4A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77BE8C7B-7576-43F9-AA08-080183EE5BDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77BE8C7B-7576-43F9-AA08-080183EE5BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77BE8C7B-7576-43F9-AA08-080183EE5BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77BE8C7B-7576-43F9-AA08-080183EE5BDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

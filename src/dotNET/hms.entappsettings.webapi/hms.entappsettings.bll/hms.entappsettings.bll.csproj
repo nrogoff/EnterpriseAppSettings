@@ -33,6 +33,10 @@
     <ApplicationIcon>EntAppSettingsLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,10 +48,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettingsHandler.cs" />
+    <Compile Include="IAppSettingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntAppSettingsLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\hms.entappsettings.contracts\hms.entappsettings.contracts.csproj">
+      <Project>{3ca573f5-b14e-48b2-a62e-781928fdf512}</Project>
+      <Name>hms.entappsettings.contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hms.entappsettings.model\hms.entappsettings.model.csproj">
+      <Project>{0d57e738-3c34-4fef-b794-698b27ac8443}</Project>
+      <Name>hms.entappsettings.model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hms.entappsettings.repository\hms.entappsettings.repository.csproj">
+      <Project>{72b98ed1-54e7-4e3f-b478-ae0a1e3da23e}</Project>
+      <Name>hms.entappsettings.repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

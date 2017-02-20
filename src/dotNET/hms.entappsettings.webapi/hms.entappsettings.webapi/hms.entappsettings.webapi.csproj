@@ -400,6 +400,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\hms.entappsettings.bll\hms.entappsettings.bll.csproj">
+      <Project>{b3686705-a036-4f57-a1c5-b81c35e17851}</Project>
+      <Name>hms.entappsettings.bll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\hms.entappsettings.context\hms.entappsettings.context.csproj">
       <Project>{18a6753a-acbd-48b7-9a64-643a80e152fe}</Project>
       <Name>hms.entappsettings.context</Name>

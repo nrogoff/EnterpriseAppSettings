@@ -53,7 +53,7 @@ namespace hms.entappsettings.webapi.Controllers
         }
 
         /// <summary>
-        /// Get tenant details by id
+        /// Get tenant details by tenantId
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -75,27 +75,27 @@ namespace hms.entappsettings.webapi.Controllers
         /// <summary>
         /// Update an existing Tenant
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="tenantId"></param>
         /// <param name="tenantDTO"></param>
         /// <returns></returns>
         /// <response code="200">OK</response>
         /// <response code="400">Bad Request: Id does not match the body</response>
         /// <response code="404">Not Found: Tenant Id not found</response>
-        [Route("{id}")]
+        [Route("{tenantId}")]
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTenant(int id, TenantDTO tenantDTO)
+        public IHttpActionResult PutTenant(int tenantId, TenantDTO tenantDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != tenantDTO.TenantId)
+            if (tenantId != tenantDTO.TenantId)
             {
                 return BadRequest();
             }
-            if (!_tenantRepository.Exists(id))
+            if (!_tenantRepository.Exists(tenantId))
             {
                 return NotFound();
             }

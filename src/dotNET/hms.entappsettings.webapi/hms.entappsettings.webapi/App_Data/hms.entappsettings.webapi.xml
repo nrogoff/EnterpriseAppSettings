@@ -573,6 +573,42 @@
             <param name="appSettingGroupId">The AppSetting Group Id (i.e. the type of client). This should be hard configured in the internal application config.</param>
             <returns></returns>
         </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingsController.GetAppSettingsWithOverride(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            RESTRICTED. Returns App Settings for a given Tenant and AppSettingsGroup with an Overridden flag.
+            </summary>
+            <param name="tenantId">The Id of the Tenant whose settings to return. This should be hard configured in the internal application config.</param>
+            <param name="appSettingGroupId">The AppSetting Group Id (i.e. the type of client). This should be hard configured in the internal application config.</param>
+            <param name="includeInternals">Include internal settings. Default is false</param>
+            <returns></returns>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingsController.PutAppSetting(System.Int32,hms.entappsettings.contracts.AppSettingDTO)">
+            <summary>
+            Update an existing Tenant
+            </summary>
+            <param name="appSettingId"></param>
+            <param name="appSettingDTO"></param>
+            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">Bad Request: Id does not match the body</response>
+            <response code="404">Not Found: Tenant Id not found</response>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingsController.PostAppSetting(hms.entappsettings.contracts.AppSettingDTO)">
+            <summary>
+            Adds an App Setting
+            </summary>
+            <param name="appSettingDTO">A new App Setting</param>
+            <returns></returns>
+        </member>
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingsController.DeleteTenant(System.Int32)">
+            <summary>
+            Delete a Tenant
+            </summary>
+            <param name="appSettingId">The App Setting Id</param>
+            <returns>Tenant DTO of deleted item</returns>
+            <response code="200">OK</response>
+            <response code="404">Not Found</response>
+        </member>
         <member name="T:hms.entappsettings.webapi.Controllers.AppSettingSectionsController">
             <summary>
             Public API for getting and managing Sections
@@ -649,7 +685,7 @@
         </member>
         <member name="M:hms.entappsettings.webapi.Controllers.TenantsController.GetTenant(System.Int32)">
             <summary>
-            Get tenant details by id
+            Get tenant details by tenantId
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -658,7 +694,7 @@
             <summary>
             Update an existing Tenant
             </summary>
-            <param name="id"></param>
+            <param name="tenantId"></param>
             <param name="tenantDTO"></param>
             <returns></returns>
             <response code="200">OK</response>

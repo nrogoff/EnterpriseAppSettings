@@ -113,6 +113,10 @@
       <Project>{72B98ED1-54E7-4E3F-B478-AE0A1E3DA23E}</Project>
       <Name>hms.entappsettings.repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\hms.entappsettings.Tests.common\hms.entappsettings.Tests.common.csproj">
+      <Project>{77be8c7b-7576-43f9-aa08-080183ee5bde}</Project>
+      <Name>hms.entappsettings.Tests.common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="IntegrationTestData\EntAppSettingsDb-INTTEST-v12.ldf">
@@ -122,6 +126,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

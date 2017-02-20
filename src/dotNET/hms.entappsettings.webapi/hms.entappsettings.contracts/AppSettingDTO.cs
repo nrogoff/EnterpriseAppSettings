@@ -20,7 +20,7 @@ namespace hms.entappsettings.contracts
         /// <summary>
         /// The setting Id
         /// </summary>
-        public string AppSettingId { get; set; }
+        public int AppSettingId { get; set; }
 
         /// <summary>
         /// Setting Key

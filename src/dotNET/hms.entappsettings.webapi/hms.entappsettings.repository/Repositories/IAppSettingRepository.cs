@@ -13,8 +13,8 @@ namespace hms.entappsettings.repository.Repositories
 
         IQueryable<AppSetting> GetAllAppSettings(bool includeInternal = false);
 
-        IEnumerable<AppSetting> GetResultantAppSettings(int? tenantId, int appSettingGroupId, bool includeInternal = false);
+        IEnumerable<AppSetting> GetResultantAppSettings(int tenantId, int appSettingGroupId, bool includeInternal = false);
 
-
+        void Add(AppSetting appSetting);
     }
 }

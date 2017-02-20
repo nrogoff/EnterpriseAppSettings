@@ -55,15 +55,15 @@ namespace hms.entappsettings.repository.Repositories
         /// <summary>
         /// Returns the resultant AppSettings for a particular affiliate, including unaffiliated (=0) and including all Groups that apply
         /// </summary>
-        /// <param name="tenantId">The Id of the tenant. When used from management UI then can leave as null to get all Tenants</param>
+        /// <param name="tenantId">The Id of the tenant.</param>
         /// <param name="appSettingGroupId"></param>
         /// <param name="includeInternal">Include internal App Settings. Default = false</param>
         /// <returns>Collection of AppSettings. Null if Tenant Id does not exist</returns>
-        public IEnumerable<AppSetting> GetResultantAppSettings(int? tenantId, int appSettingGroupId, bool includeInternal = false)
+        public IEnumerable<AppSetting> GetResultantAppSettings(int tenantId, int appSettingGroupId, bool includeInternal = false)
         {
-            if (tenantId != null && _tenantRepository.GetById(tenantId.Value) == null)
+            if (_tenantRepository.GetById(tenantId) == null)
             {
-                throw new ArgumentOutOfRangeException(nameof(tenantId), "Tenant does not exist in the database. Accepted value is null or valid Tenant Id");
+                throw new ArgumentOutOfRangeException(nameof(tenantId), "Tenant does not exist in the database.");
             }
             if (_appSettingGroupRepository.GetById(appSettingGroupId) == null)
             {
@@ -72,7 +72,7 @@ namespace hms.entappsettings.repository.Repositories
 
             var resultantSettings = new List<AppSetting>();
             
-            var allTenantsAppSettings = tenantId != null ? GetAllAppSettings(includeInternal).Where(s => s.TenantId == tenantId.Value || s.TenantId == PlatformTenantId).ToList() : GetAllAppSettings(includeInternal).ToList();
+            var allTenantsAppSettings = GetAllAppSettings(includeInternal).Where(s => s.TenantId == tenantId || s.TenantId == PlatformTenantId).ToList();
 
             //filter to only app settings in passed group and parent groups
             var allAffiliateSettingsInGroup = (from setting in allTenantsAppSettings
@@ -104,6 +104,18 @@ namespace hms.entappsettings.repository.Repositories
             return resultantSettings;
         }
 
+        /// <summary>
+        /// Add an AppSetting
+        /// </summary>
+        /// <param name="appSetting"></param>
+        public void Add(AppSetting appSetting)
+        {
+            if (appSetting.SettingKey.Contains(" "))
+            {
+                throw new ArgumentOutOfRangeException(nameof(appSetting),"The App Setting Key cannot contain spaces");
+            }
+            _dbContext.AppSettings.Add(appSetting);
+        }
 
 
         #region private methods
@@ -222,6 +234,8 @@ namespace hms.entappsettings.repository.Repositories
                 if (disposing)
                 {
                     //clean up managed resources
+                    _appSettingGroupRepository?.Dispose();
+                    _tenantRepository?.Dispose();
                 }
 
                 //clear up any unmanaged resources - this is safe to
