@@ -18,6 +18,30 @@ namespace hms.entappsettings.webapi.clientsdk
     public partial interface IAppSettingGroups
     {
         /// <summary>
+        /// Returns the App Setting Groups details for a single group Id
+        /// </summary>
+        /// <param name='appSettingGroupId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<AppSettingGroupDTO>> GetAppSettingGroupWithHttpMessagesAsync(int appSettingGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// RESTRICTED: Delete an App Setting Group
+        /// </summary>
+        /// <param name='appSettingGroupId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<AppSettingGroupDTO>> DeleteAppSettingGroupWithHttpMessagesAsync(int appSettingGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
         /// Returns the App Setting Groups details for a given Group Path
         /// </summary>
         /// <param name='groupPath'>
@@ -33,6 +57,20 @@ namespace hms.entappsettings.webapi.clientsdk
         /// </param>
         Task<HttpOperationResponse<AppSettingGroupDTO>> GetAppSettingGroupByPathWithHttpMessagesAsync(string groupPath, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
+        /// RESTRICTED: Update an existing App Setting Group
+        /// </summary>
+        /// <param name='id'>
+        /// </param>
+        /// <param name='appSettingGroupDTO'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> PutAppSettingGroupWithHttpMessagesAsync(int id, AppSettingGroupDTO appSettingGroupDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
         /// Returns all the App Setting Groups
         /// </summary>
         /// <param name='customHeaders'>
@@ -43,9 +81,9 @@ namespace hms.entappsettings.webapi.clientsdk
         /// </param>
         Task<HttpOperationResponse<IList<AppSettingGroupDTO>>> GetAppSettingGroupsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Returns the App Setting Groups details for a single group Id
+        /// RESTRICTED: Add an App Setting Group
         /// </summary>
-        /// <param name='id'>
+        /// <param name='appSettingGroupDTO'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -53,6 +91,6 @@ namespace hms.entappsettings.webapi.clientsdk
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<AppSettingGroupDTO>> GetAppSettingGroupWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<AppSettingGroupDTO>> PostAppSettingGroupWithHttpMessagesAsync(AppSettingGroupDTO appSettingGroupDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

@@ -53,6 +53,16 @@ namespace hms.entappsettings.webapi.clientsdk
         public virtual IAppSettings AppSettings { get; private set; }
 
         /// <summary>
+        /// Gets the IAppSettingSections.
+        /// </summary>
+        public virtual IAppSettingSections AppSettingSections { get; private set; }
+
+        /// <summary>
+        /// Gets the ITenants.
+        /// </summary>
+        public virtual ITenants Tenants { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the Hmsentappsettingswebapi class.
         /// </summary>
         /// <param name='handlers'>
@@ -237,6 +247,8 @@ namespace hms.entappsettings.webapi.clientsdk
         {
             this.AppSettingGroups = new AppSettingGroups(this);
             this.AppSettings = new AppSettings(this);
+            this.AppSettingSections = new AppSettingSections(this);
+            this.Tenants = new Tenants(this);
             this.BaseUri = new Uri("https://localhost:44319");
             SerializationSettings = new JsonSerializerSettings
             {

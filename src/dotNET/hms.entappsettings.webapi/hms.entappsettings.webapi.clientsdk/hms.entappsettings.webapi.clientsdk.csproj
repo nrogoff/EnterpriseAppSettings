@@ -57,13 +57,22 @@
     <Compile Include="hms.entappsettings.webapi\AppSettingGroups.cs" />
     <Compile Include="hms.entappsettings.webapi\AppSettingGroupsExtensions.cs" />
     <Compile Include="hms.entappsettings.webapi\AppSettings.cs" />
+    <Compile Include="hms.entappsettings.webapi\AppSettingSections.cs" />
+    <Compile Include="hms.entappsettings.webapi\AppSettingSectionsExtensions.cs" />
     <Compile Include="hms.entappsettings.webapi\AppSettingsExtensions.cs" />
     <Compile Include="hms.entappsettings.webapi\Hmsentappsettingswebapi.cs" />
     <Compile Include="hms.entappsettings.webapi\IAppSettingGroups.cs" />
     <Compile Include="hms.entappsettings.webapi\IAppSettings.cs" />
+    <Compile Include="hms.entappsettings.webapi\IAppSettingSections.cs" />
     <Compile Include="hms.entappsettings.webapi\IHmsentappsettingswebapi.cs" />
+    <Compile Include="hms.entappsettings.webapi\ITenants.cs" />
     <Compile Include="hms.entappsettings.webapi\Models\AppSettingDTO.cs" />
     <Compile Include="hms.entappsettings.webapi\Models\AppSettingGroupDTO.cs" />
+    <Compile Include="hms.entappsettings.webapi\Models\AppSettingSectionDTO.cs" />
+    <Compile Include="hms.entappsettings.webapi\Models\AppSettingWithOverrideDTO.cs" />
+    <Compile Include="hms.entappsettings.webapi\Models\TenantDTO.cs" />
+    <Compile Include="hms.entappsettings.webapi\Tenants.cs" />
+    <Compile Include="hms.entappsettings.webapi\TenantsExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

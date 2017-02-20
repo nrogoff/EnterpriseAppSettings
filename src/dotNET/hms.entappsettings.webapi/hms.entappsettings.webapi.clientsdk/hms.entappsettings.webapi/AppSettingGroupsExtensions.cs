@@ -18,6 +18,70 @@ namespace hms.entappsettings.webapi.clientsdk
     public static partial class AppSettingGroupsExtensions
     {
             /// <summary>
+            /// Returns the App Setting Groups details for a single group Id
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingGroupId'>
+            /// </param>
+            public static AppSettingGroupDTO GetAppSettingGroup(this IAppSettingGroups operations, int appSettingGroupId)
+            {
+                return Task.Factory.StartNew(s => ((IAppSettingGroups)s).GetAppSettingGroupAsync(appSettingGroupId), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Returns the App Setting Groups details for a single group Id
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingGroupId'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<AppSettingGroupDTO> GetAppSettingGroupAsync(this IAppSettingGroups operations, int appSettingGroupId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetAppSettingGroupWithHttpMessagesAsync(appSettingGroupId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// RESTRICTED: Delete an App Setting Group
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingGroupId'>
+            /// </param>
+            public static AppSettingGroupDTO DeleteAppSettingGroup(this IAppSettingGroups operations, int appSettingGroupId)
+            {
+                return Task.Factory.StartNew(s => ((IAppSettingGroups)s).DeleteAppSettingGroupAsync(appSettingGroupId), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Delete an App Setting Group
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingGroupId'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<AppSettingGroupDTO> DeleteAppSettingGroupAsync(this IAppSettingGroups operations, int appSettingGroupId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.DeleteAppSettingGroupWithHttpMessagesAsync(appSettingGroupId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Returns the App Setting Groups details for a given Group Path
             /// </summary>
             /// <param name='operations'>
@@ -56,6 +120,39 @@ namespace hms.entappsettings.webapi.clientsdk
             }
 
             /// <summary>
+            /// RESTRICTED: Update an existing App Setting Group
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='appSettingGroupDTO'>
+            /// </param>
+            public static void PutAppSettingGroup(this IAppSettingGroups operations, int id, AppSettingGroupDTO appSettingGroupDTO)
+            {
+                Task.Factory.StartNew(s => ((IAppSettingGroups)s).PutAppSettingGroupAsync(id, appSettingGroupDTO), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Update an existing App Setting Group
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='appSettingGroupDTO'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task PutAppSettingGroupAsync(this IAppSettingGroups operations, int id, AppSettingGroupDTO appSettingGroupDTO, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                await operations.PutAppSettingGroupWithHttpMessagesAsync(id, appSettingGroupDTO, null, cancellationToken).ConfigureAwait(false);
+            }
+
+            /// <summary>
             /// Returns all the App Setting Groups
             /// </summary>
             /// <param name='operations'>
@@ -84,32 +181,32 @@ namespace hms.entappsettings.webapi.clientsdk
             }
 
             /// <summary>
-            /// Returns the App Setting Groups details for a single group Id
+            /// RESTRICTED: Add an App Setting Group
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='id'>
+            /// <param name='appSettingGroupDTO'>
             /// </param>
-            public static AppSettingGroupDTO GetAppSettingGroup(this IAppSettingGroups operations, int id)
+            public static AppSettingGroupDTO PostAppSettingGroup(this IAppSettingGroups operations, AppSettingGroupDTO appSettingGroupDTO)
             {
-                return Task.Factory.StartNew(s => ((IAppSettingGroups)s).GetAppSettingGroupAsync(id), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+                return Task.Factory.StartNew(s => ((IAppSettingGroups)s).PostAppSettingGroupAsync(appSettingGroupDTO), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Returns the App Setting Groups details for a single group Id
+            /// RESTRICTED: Add an App Setting Group
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='id'>
+            /// <param name='appSettingGroupDTO'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<AppSettingGroupDTO> GetAppSettingGroupAsync(this IAppSettingGroups operations, int id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AppSettingGroupDTO> PostAppSettingGroupAsync(this IAppSettingGroups operations, AppSettingGroupDTO appSettingGroupDTO, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetAppSettingGroupWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.PostAppSettingGroupWithHttpMessagesAsync(appSettingGroupDTO, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

@@ -20,17 +20,17 @@ namespace hms.entappsettings.webapi.clientsdk
     using Models;
 
     /// <summary>
-    /// AppSettings operations.
+    /// Tenants operations.
     /// </summary>
-    public partial class AppSettings : IServiceOperations<Hmsentappsettingswebapi>, IAppSettings
+    public partial class Tenants : IServiceOperations<Hmsentappsettingswebapi>, ITenants
     {
         /// <summary>
-        /// Initializes a new instance of the AppSettings class.
+        /// Initializes a new instance of the Tenants class.
         /// </summary>
         /// <param name='client'>
         /// Reference to the service client.
         /// </param>
-        public AppSettings(Hmsentappsettingswebapi client)
+        public Tenants(Hmsentappsettingswebapi client)
         {
             if (client == null) 
             {
@@ -45,16 +45,9 @@ namespace hms.entappsettings.webapi.clientsdk
         public Hmsentappsettingswebapi Client { get; private set; }
 
         /// <summary>
-        /// Returns RESULTANT App Settings for a given Tenant and AppSettingsGroup. NO
-        /// internal settings published.
+        /// Get tenant details by tenantId
         /// </summary>
-        /// <param name='tenantId'>
-        /// The Id of the Tenant whose settings to return. This should be hard
-        /// configured in the internal application config.
-        /// </param>
-        /// <param name='appSettingGroupId'>
-        /// The AppSetting Group Id (i.e. the type of client). This should be hard
-        /// configured in the internal application config.
+        /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -65,7 +58,7 @@ namespace hms.entappsettings.webapi.clientsdk
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<AppSettingDTO>>> GetAppSettingsWithHttpMessagesAsync(int tenantId, int appSettingGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<TenantDTO>> GetTenantWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -74,155 +67,14 @@ namespace hms.entappsettings.webapi.clientsdk
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("tenantId", tenantId);
-                tracingParameters.Add("appSettingGroupId", appSettingGroupId);
+                tracingParameters.Add("id", id);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetAppSettings", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetTenant", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AppSettings/{tenantId}/{appSettingGroupId}").ToString();
-            _url = _url.Replace("{tenantId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(tenantId, this.Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{appSettingGroupId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(appSettingGroupId, this.Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            HttpRequestMessage _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new Uri(_url);
-            // Set Headers
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Set Credentials
-            if (this.Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await this.Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
-            // Send Request
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
-            }
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await this.Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
-            }
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200 && (int)_statusCode != 404)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_shouldTrace)
-                {
-                    ServiceClientTracing.Error(_invocationId, ex);
-                }
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<IList<AppSettingDTO>>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<AppSettingDTO>>(_responseContent, this.Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.Exit(_invocationId, _result);
-            }
-            return _result;
-        }
-
-        /// <summary>
-        /// RESTRICTED: Returns App Settings for a given Tenant and App Setting Group
-        /// with an Overridden flag.
-        /// </summary>
-        /// <param name='tenantId'>
-        /// The Id of the Tenant whose settings to return. This should be hard
-        /// configured in the internal application config.
-        /// </param>
-        /// <param name='appSettingGroupId'>
-        /// The AppSetting Group Id (i.e. the type of client). This should be hard
-        /// configured in the internal application config.
-        /// </param>
-        /// <param name='includeInternals'>
-        /// Include internal settings. Default is false
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<IList<AppSettingWithOverrideDTO>>> GetAppSettingsWithOverrideWithHttpMessagesAsync(int tenantId, int appSettingGroupId, bool? includeInternals = default(bool?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            // Tracing
-            bool _shouldTrace = ServiceClientTracing.IsEnabled;
-            string _invocationId = null;
-            if (_shouldTrace)
-            {
-                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("tenantId", tenantId);
-                tracingParameters.Add("appSettingGroupId", appSettingGroupId);
-                tracingParameters.Add("includeInternals", includeInternals);
-                tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetAppSettingsWithOverride", tracingParameters);
-            }
-            // Construct URL
-            var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AppSettings/WithOverrideFlag/{tenantId}/{appSettingGroupId}").ToString();
-            _url = _url.Replace("{tenantId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(tenantId, this.Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{appSettingGroupId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(appSettingGroupId, this.Client.SerializationSettings).Trim('"')));
-            List<string> _queryParameters = new List<string>();
-            if (includeInternals != null)
-            {
-                _queryParameters.Add(string.Format("includeInternals={0}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(includeInternals, this.Client.SerializationSettings).Trim('"'))));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/Tenants/{id}").ToString();
+            _url = _url.Replace("{id}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(id, this.Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -281,7 +133,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IList<AppSettingWithOverrideDTO>>();
+            var _result = new HttpOperationResponse<TenantDTO>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -290,7 +142,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<AppSettingWithOverrideDTO>>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<TenantDTO>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -310,11 +162,10 @@ namespace hms.entappsettings.webapi.clientsdk
         }
 
         /// <summary>
-        /// RESTRICTED: Update an existing Tenant
+        /// Delete a Tenant
         /// </summary>
-        /// <param name='appSettingId'>
-        /// </param>
-        /// <param name='appSettingDTO'>
+        /// <param name='id'>
+        /// The TenantId
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -325,122 +176,7 @@ namespace hms.entappsettings.webapi.clientsdk
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> PutAppSettingWithHttpMessagesAsync(int appSettingId, AppSettingDTO appSettingDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            if (appSettingDTO == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "appSettingDTO");
-            }
-            if (appSettingDTO != null)
-            {
-                appSettingDTO.Validate();
-            }
-            // Tracing
-            bool _shouldTrace = ServiceClientTracing.IsEnabled;
-            string _invocationId = null;
-            if (_shouldTrace)
-            {
-                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("appSettingId", appSettingId);
-                tracingParameters.Add("appSettingDTO", appSettingDTO);
-                tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "PutAppSetting", tracingParameters);
-            }
-            // Construct URL
-            var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AppSettings/{appSettingId}").ToString();
-            _url = _url.Replace("{appSettingId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(appSettingId, this.Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            HttpRequestMessage _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("PUT");
-            _httpRequest.RequestUri = new Uri(_url);
-            // Set Headers
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            if(appSettingDTO != null)
-            {
-                _requestContent = SafeJsonConvert.SerializeObject(appSettingDTO, this.Client.SerializationSettings);
-                _httpRequest.Content = new StringContent(_requestContent, Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (this.Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await this.Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
-            // Send Request
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
-            }
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await this.Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
-            }
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 204 && (int)_statusCode != 400 && (int)_statusCode != 404)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_shouldTrace)
-                {
-                    ServiceClientTracing.Error(_invocationId, ex);
-                }
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            if (_shouldTrace)
-            {
-                ServiceClientTracing.Exit(_invocationId, _result);
-            }
-            return _result;
-        }
-
-        /// <summary>
-        /// RESTRICTED: Delete a Tenant
-        /// </summary>
-        /// <param name='appSettingId'>
-        /// The App Setting Id
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<AppSettingDTO>> DeleteTenantWithHttpMessagesAsync(int appSettingId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<TenantDTO>> DeleteTenantWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -449,14 +185,14 @@ namespace hms.entappsettings.webapi.clientsdk
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("appSettingId", appSettingId);
+                tracingParameters.Add("id", id);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "DeleteTenant", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AppSettings/{appSettingId}").ToString();
-            _url = _url.Replace("{appSettingId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(appSettingId, this.Client.SerializationSettings).Trim('"')));
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/Tenants/{id}").ToString();
+            _url = _url.Replace("{id}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(id, this.Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -515,7 +251,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<AppSettingDTO>();
+            var _result = new HttpOperationResponse<TenantDTO>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -524,7 +260,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<AppSettingDTO>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<TenantDTO>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -544,16 +280,11 @@ namespace hms.entappsettings.webapi.clientsdk
         }
 
         /// <summary>
-        /// RESTRICTED: Gets all App Settings
+        /// Update an existing Tenant
         /// </summary>
-        /// <param name='includeInternals'>
-        /// Include internal falgged settings. Default is false
+        /// <param name='tenantId'>
         /// </param>
-        /// <param name='skip'>
-        /// default = 0
-        /// </param>
-        /// <param name='take'>
-        /// default = 20
+        /// <param name='tenantDTO'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -564,7 +295,115 @@ namespace hms.entappsettings.webapi.clientsdk
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<AppSettingDTO>>> GetAllAppSettingsWithHttpMessagesAsync(bool? includeInternals = default(bool?), int? skip = default(int?), int? take = default(int?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> PutTenantWithHttpMessagesAsync(int tenantId, TenantDTO tenantDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (tenantDTO == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantDTO");
+            }
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("tenantId", tenantId);
+                tracingParameters.Add("tenantDTO", tenantDTO);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "PutTenant", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = this.Client.BaseUri.AbsoluteUri;
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/Tenants/{tenantId}").ToString();
+            _url = _url.Replace("{tenantId}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(tenantId, this.Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            HttpRequestMessage _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("PUT");
+            _httpRequest.RequestUri = new Uri(_url);
+            // Set Headers
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(tenantDTO != null)
+            {
+                _requestContent = SafeJsonConvert.SerializeObject(tenantDTO, this.Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Set Credentials
+            if (this.Client.Credentials != null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await this.Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            }
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await this.Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 204 && (int)_statusCode != 400 && (int)_statusCode != 404)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
+        /// <summary>
+        /// Returns all Tenants
+        /// </summary>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<object>> GetTenantsWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -573,32 +412,12 @@ namespace hms.entappsettings.webapi.clientsdk
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("includeInternals", includeInternals);
-                tracingParameters.Add("skip", skip);
-                tracingParameters.Add("take", take);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetAllAppSettings", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetTenants", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AppSettings").ToString();
-            List<string> _queryParameters = new List<string>();
-            if (includeInternals != null)
-            {
-                _queryParameters.Add(string.Format("includeInternals={0}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(includeInternals, this.Client.SerializationSettings).Trim('"'))));
-            }
-            if (skip != null)
-            {
-                _queryParameters.Add(string.Format("skip={0}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(skip, this.Client.SerializationSettings).Trim('"'))));
-            }
-            if (take != null)
-            {
-                _queryParameters.Add(string.Format("take={0}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(take, this.Client.SerializationSettings).Trim('"'))));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/Tenants").ToString();
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -639,7 +458,7 @@ namespace hms.entappsettings.webapi.clientsdk
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200 && (int)_statusCode != 404)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -657,7 +476,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IList<AppSettingDTO>>();
+            var _result = new HttpOperationResponse<object>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -666,7 +485,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<AppSettingDTO>>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<object>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -686,10 +505,10 @@ namespace hms.entappsettings.webapi.clientsdk
         }
 
         /// <summary>
-        /// RESTRICTED: Adds an App Setting
+        /// Add an Tenant
         /// </summary>
-        /// <param name='appSettingDTO'>
-        /// A new App Setting
+        /// <param name='tenantDTO'>
+        /// The new tenant DTO
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -700,15 +519,11 @@ namespace hms.entappsettings.webapi.clientsdk
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<AppSettingDTO>> PostAppSettingWithHttpMessagesAsync(AppSettingDTO appSettingDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<TenantDTO>> PostTenantWithHttpMessagesAsync(TenantDTO tenantDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (appSettingDTO == null)
+            if (tenantDTO == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "appSettingDTO");
-            }
-            if (appSettingDTO != null)
-            {
-                appSettingDTO.Validate();
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantDTO");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -717,13 +532,13 @@ namespace hms.entappsettings.webapi.clientsdk
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("appSettingDTO", appSettingDTO);
+                tracingParameters.Add("tenantDTO", tenantDTO);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "PostAppSetting", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "PostTenant", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AppSettings").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/Tenants").ToString();
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -744,9 +559,9 @@ namespace hms.entappsettings.webapi.clientsdk
 
             // Serialize Request
             string _requestContent = null;
-            if(appSettingDTO != null)
+            if(tenantDTO != null)
             {
-                _requestContent = SafeJsonConvert.SerializeObject(appSettingDTO, this.Client.SerializationSettings);
+                _requestContent = SafeJsonConvert.SerializeObject(tenantDTO, this.Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, Encoding.UTF8);
                 _httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
             }
@@ -788,7 +603,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<AppSettingDTO>();
+            var _result = new HttpOperationResponse<TenantDTO>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -797,7 +612,7 @@ namespace hms.entappsettings.webapi.clientsdk
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<AppSettingDTO>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<TenantDTO>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

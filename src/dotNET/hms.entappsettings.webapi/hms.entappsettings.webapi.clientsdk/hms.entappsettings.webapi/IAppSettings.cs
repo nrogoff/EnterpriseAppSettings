@@ -36,5 +36,86 @@ namespace hms.entappsettings.webapi.clientsdk
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse<IList<AppSettingDTO>>> GetAppSettingsWithHttpMessagesAsync(int tenantId, int appSettingGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// RESTRICTED: Returns App Settings for a given Tenant and App
+        /// Setting Group with an Overridden flag.
+        /// </summary>
+        /// <param name='tenantId'>
+        /// The Id of the Tenant whose settings to return. This should be hard
+        /// configured in the internal application config.
+        /// </param>
+        /// <param name='appSettingGroupId'>
+        /// The AppSetting Group Id (i.e. the type of client). This should be
+        /// hard configured in the internal application config.
+        /// </param>
+        /// <param name='includeInternals'>
+        /// Include internal settings. Default is false
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<AppSettingWithOverrideDTO>>> GetAppSettingsWithOverrideWithHttpMessagesAsync(int tenantId, int appSettingGroupId, bool? includeInternals = default(bool?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// RESTRICTED: Update an existing Tenant
+        /// </summary>
+        /// <param name='appSettingId'>
+        /// </param>
+        /// <param name='appSettingDTO'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> PutAppSettingWithHttpMessagesAsync(int appSettingId, AppSettingDTO appSettingDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// RESTRICTED: Delete a Tenant
+        /// </summary>
+        /// <param name='appSettingId'>
+        /// The App Setting Id
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<AppSettingDTO>> DeleteTenantWithHttpMessagesAsync(int appSettingId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// RESTRICTED: Gets all App Settings
+        /// </summary>
+        /// <param name='includeInternals'>
+        /// Include internal falgged settings. Default is false
+        /// </param>
+        /// <param name='skip'>
+        /// default = 0
+        /// </param>
+        /// <param name='take'>
+        /// default = 20
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<AppSettingDTO>>> GetAllAppSettingsWithHttpMessagesAsync(bool? includeInternals = default(bool?), int? skip = default(int?), int? take = default(int?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// RESTRICTED: Adds an App Setting
+        /// </summary>
+        /// <param name='appSettingDTO'>
+        /// A new App Setting
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<AppSettingDTO>> PostAppSettingWithHttpMessagesAsync(AppSettingDTO appSettingDTO, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

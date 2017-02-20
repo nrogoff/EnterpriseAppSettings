@@ -12,20 +12,22 @@ namespace hms.entappsettings.webapi.clientsdk.Models
     using Microsoft.Rest.Serialization;
 
     /// <summary>
-    /// Application Setting
+    /// AppSetting with overridden indicator. Used in the management UI to
+    /// highlight or dim entries
     /// </summary>
-    public partial class AppSettingDTO
+    public partial class AppSettingWithOverrideDTO
     {
         /// <summary>
-        /// Initializes a new instance of the AppSettingDTO class.
+        /// Initializes a new instance of the AppSettingWithOverrideDTO class.
         /// </summary>
-        public AppSettingDTO() { }
+        public AppSettingWithOverrideDTO() { }
 
         /// <summary>
-        /// Initializes a new instance of the AppSettingDTO class.
+        /// Initializes a new instance of the AppSettingWithOverrideDTO class.
         /// </summary>
-        public AppSettingDTO(string settingKey, int tenantId, string settingGroupId, string settingSectionId, string typeId, int? appSettingId = default(int?), string groupPath = default(string), string settingValue = default(string), bool? isLocked = default(bool?), bool? isInternalOnly = default(bool?), string description = default(string), DateTime? modifiedDate = default(DateTime?), string modifiedBy = default(string))
+        public AppSettingWithOverrideDTO(string settingKey, int tenantId, string settingGroupId, string settingSectionId, string typeId, bool? overridden = default(bool?), int? appSettingId = default(int?), string groupPath = default(string), string settingValue = default(string), bool? isLocked = default(bool?), bool? isInternalOnly = default(bool?), string description = default(string), DateTime? modifiedDate = default(DateTime?), string modifiedBy = default(string))
         {
+            Overridden = overridden;
             AppSettingId = appSettingId;
             SettingKey = settingKey;
             TenantId = tenantId;
@@ -40,6 +42,12 @@ namespace hms.entappsettings.webapi.clientsdk.Models
             ModifiedDate = modifiedDate;
             ModifiedBy = modifiedBy;
         }
+
+        /// <summary>
+        /// Has this setting been overridden by one at a high level
+        /// </summary>
+        [JsonProperty(PropertyName = "Overridden")]
+        public bool? Overridden { get; set; }
 
         /// <summary>
         /// The setting Id

@@ -42,7 +42,7 @@ namespace hms.entappsettings.webapi.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpGet]
         [ResponseType(typeof(IEnumerable<AppSettingSectionDTO>))]
-        public IHttpActionResult GetAppSettingSection()
+        public IHttpActionResult GetAppSettingSections()
         {
             try
             {

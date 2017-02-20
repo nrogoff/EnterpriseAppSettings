@@ -49,5 +49,15 @@ namespace hms.entappsettings.webapi.clientsdk
         /// </summary>
         IAppSettings AppSettings { get; }
 
+        /// <summary>
+        /// Gets the IAppSettingSections.
+        /// </summary>
+        IAppSettingSections AppSettingSections { get; }
+
+        /// <summary>
+        /// Gets the ITenants.
+        /// </summary>
+        ITenants Tenants { get; }
+
     }
 }

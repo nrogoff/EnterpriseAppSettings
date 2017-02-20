@@ -649,7 +649,7 @@
             <param name="appSectionRepository"></param>
             <param name="mapper"></param>
         </member>
-        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.GetAppSettingSection">
+        <member name="M:hms.entappsettings.webapi.Controllers.AppSettingSectionsController.GetAppSettingSections">
             <summary>
             Returns all Sections
             </summary>

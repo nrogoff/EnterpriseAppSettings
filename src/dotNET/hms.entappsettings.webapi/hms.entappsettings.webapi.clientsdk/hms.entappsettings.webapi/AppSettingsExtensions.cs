@@ -63,5 +63,204 @@ namespace hms.entappsettings.webapi.clientsdk
                 }
             }
 
+            /// <summary>
+            /// RESTRICTED: Returns App Settings for a given Tenant and App Setting Group
+            /// with an Overridden flag.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='tenantId'>
+            /// The Id of the Tenant whose settings to return. This should be hard
+            /// configured in the internal application config.
+            /// </param>
+            /// <param name='appSettingGroupId'>
+            /// The AppSetting Group Id (i.e. the type of client). This should be hard
+            /// configured in the internal application config.
+            /// </param>
+            /// <param name='includeInternals'>
+            /// Include internal settings. Default is false
+            /// </param>
+            public static IList<AppSettingWithOverrideDTO> GetAppSettingsWithOverride(this IAppSettings operations, int tenantId, int appSettingGroupId, bool? includeInternals = default(bool?))
+            {
+                return Task.Factory.StartNew(s => ((IAppSettings)s).GetAppSettingsWithOverrideAsync(tenantId, appSettingGroupId, includeInternals), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Returns App Settings for a given Tenant and App Setting Group
+            /// with an Overridden flag.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='tenantId'>
+            /// The Id of the Tenant whose settings to return. This should be hard
+            /// configured in the internal application config.
+            /// </param>
+            /// <param name='appSettingGroupId'>
+            /// The AppSetting Group Id (i.e. the type of client). This should be hard
+            /// configured in the internal application config.
+            /// </param>
+            /// <param name='includeInternals'>
+            /// Include internal settings. Default is false
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<AppSettingWithOverrideDTO>> GetAppSettingsWithOverrideAsync(this IAppSettings operations, int tenantId, int appSettingGroupId, bool? includeInternals = default(bool?), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetAppSettingsWithOverrideWithHttpMessagesAsync(tenantId, appSettingGroupId, includeInternals, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// RESTRICTED: Update an existing Tenant
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingId'>
+            /// </param>
+            /// <param name='appSettingDTO'>
+            /// </param>
+            public static void PutAppSetting(this IAppSettings operations, int appSettingId, AppSettingDTO appSettingDTO)
+            {
+                Task.Factory.StartNew(s => ((IAppSettings)s).PutAppSettingAsync(appSettingId, appSettingDTO), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Update an existing Tenant
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingId'>
+            /// </param>
+            /// <param name='appSettingDTO'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task PutAppSettingAsync(this IAppSettings operations, int appSettingId, AppSettingDTO appSettingDTO, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                await operations.PutAppSettingWithHttpMessagesAsync(appSettingId, appSettingDTO, null, cancellationToken).ConfigureAwait(false);
+            }
+
+            /// <summary>
+            /// RESTRICTED: Delete a Tenant
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingId'>
+            /// The App Setting Id
+            /// </param>
+            public static AppSettingDTO DeleteTenant(this IAppSettings operations, int appSettingId)
+            {
+                return Task.Factory.StartNew(s => ((IAppSettings)s).DeleteTenantAsync(appSettingId), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Delete a Tenant
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingId'>
+            /// The App Setting Id
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<AppSettingDTO> DeleteTenantAsync(this IAppSettings operations, int appSettingId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.DeleteTenantWithHttpMessagesAsync(appSettingId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// RESTRICTED: Gets all App Settings
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='includeInternals'>
+            /// Include internal falgged settings. Default is false
+            /// </param>
+            /// <param name='skip'>
+            /// default = 0
+            /// </param>
+            /// <param name='take'>
+            /// default = 20
+            /// </param>
+            public static IList<AppSettingDTO> GetAllAppSettings(this IAppSettings operations, bool? includeInternals = default(bool?), int? skip = default(int?), int? take = default(int?))
+            {
+                return Task.Factory.StartNew(s => ((IAppSettings)s).GetAllAppSettingsAsync(includeInternals, skip, take), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Gets all App Settings
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='includeInternals'>
+            /// Include internal falgged settings. Default is false
+            /// </param>
+            /// <param name='skip'>
+            /// default = 0
+            /// </param>
+            /// <param name='take'>
+            /// default = 20
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<AppSettingDTO>> GetAllAppSettingsAsync(this IAppSettings operations, bool? includeInternals = default(bool?), int? skip = default(int?), int? take = default(int?), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetAllAppSettingsWithHttpMessagesAsync(includeInternals, skip, take, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// RESTRICTED: Adds an App Setting
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingDTO'>
+            /// A new App Setting
+            /// </param>
+            public static AppSettingDTO PostAppSetting(this IAppSettings operations, AppSettingDTO appSettingDTO)
+            {
+                return Task.Factory.StartNew(s => ((IAppSettings)s).PostAppSettingAsync(appSettingDTO), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// RESTRICTED: Adds an App Setting
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='appSettingDTO'>
+            /// A new App Setting
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<AppSettingDTO> PostAppSettingAsync(this IAppSettings operations, AppSettingDTO appSettingDTO, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.PostAppSettingWithHttpMessagesAsync(appSettingDTO, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
     }
 }
